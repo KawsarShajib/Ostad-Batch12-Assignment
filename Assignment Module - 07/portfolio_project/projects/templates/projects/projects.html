@@ -1,0 +1,41 @@
+{% extends 'projects/base.html' %}
+{% load static %}
+
+{% block title %}Projects - Kawsar{% endblock %}
+
+{% block content %}
+<section class="projects-section">
+    <h2 class="section-title">My <span>Projects</span></h2>
+    
+    {% if projects %}
+    <div class="projects-grid">
+        {% for project in projects %}
+        <div class="project-card">
+            {% if project.image %}
+            <div class="project-img">
+                <img src="{{ project.image.url }}" alt="{{ project.title }}">
+            </div>
+            {% endif %}
+            <div class="project-info">
+                <h3>{{ project.title }}</h3>
+                <p class="tech-used"><i class="fas fa-code"></i> {{ project.technology }}</p>
+                <p class="project-desc">{{ project.description|truncatewords:20 }}</p>
+                <div class="project-links">
+                    <a href="{% url 'project_detail' project.pk %}" class="btn btn-small">View Details</a>
+                    {% if project.github_link %}
+                    <a href="{{ project.github_link }}" target="_blank" class="btn btn-small btn-github">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="no-projects">
+        <p>No projects yet. Add some from the <a href="/admin/">Admin Panel</a>!</p>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}
