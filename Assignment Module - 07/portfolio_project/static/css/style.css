@@ -67,6 +67,20 @@ nav a.active {
     border-bottom: 3px solid #b74b4b;
 }
 
+
+/* Admin Button Styling */
+nav a.admin-btn {
+    color: #4bb77c;
+    border-bottom: 3px solid transparent;
+}
+
+nav a.admin-btn:hover {
+    color: #4bb77c;
+    border-bottom: 3px solid #4bb77c;
+    text-shadow: 0 0 10px rgba(75, 183, 124, 0.5);
+}
+
+
 @media(max-width:995px) {
     nav {
         position: absolute;
@@ -97,6 +111,18 @@ nav a.active {
         padding: 1rem;
         border-radius: 0.5rem;
         border-bottom: 0.5rem solid #b74b4b;
+    }
+    
+    nav a.admin-btn {
+        display: block;
+        font-size: 2rem;
+        margin: 3rem 0;
+    }
+
+    nav a.admin-btn:hover {
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border-bottom: 0.5rem solid #4bb77c;
     }
 }
 
