@@ -15,6 +15,7 @@
         <nav>
             <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
             <a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a>
+            <a href="{% url 'home' %}#skills">Skills</a>
             <a href="{% url 'projects' %}" class="{% if request.resolver_match.url_name == 'projects' or request.resolver_match.url_name == 'project_detail' %}active{% endif %}">Projects</a>
             <a href="{% url 'home' %}#contact">Contact</a>
             <a href="{% url 'admin:index' %}" class="admin-btn">Admin</a>
