@@ -368,7 +368,7 @@ span {
     align-items: center;
     gap: 8rem;
     max-width: 1200px;
-    margin-top: 3rem;
+    margin-top: 0rem;
 }
 
 .about-img img {
@@ -581,5 +581,32 @@ footer {
     
     .section-title {
         font-size: 3rem;
+    }
+}
+
+
+/* ============================================
+   ACTIVE STATE FOR ANCHOR LINKS (Skills & Contact)
+   ============================================ */
+
+/* When #skills is targeted in URL, highlight Skills nav link */
+html:has(#skills:target) nav a[href*="#skills"] {
+    color: #b74b4b;
+    border-bottom: 3px solid #b74b4b;
+}
+
+/* When #contact is targeted in URL, highlight Contact nav link */
+html:has(#contact:target) nav a[href*="#contact"] {
+    color: #b74b4b;
+    border-bottom: 3px solid #b74b4b;
+}
+
+/* Mobile responsive: match the existing active link padding */
+@media(max-width:995px) {
+    html:has(#skills:target) nav a[href*="#skills"],
+    html:has(#contact:target) nav a[href*="#contact"] {
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border-bottom: 0.5rem solid #b74b4b;
     }
 }
