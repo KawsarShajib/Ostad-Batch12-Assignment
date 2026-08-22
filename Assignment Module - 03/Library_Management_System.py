@@ -64,20 +64,20 @@ class Book:
         # Increase total books
         Book.total_books += 1
 
-        # Getter
-        @property
-        def available(self):
-            return self.__available
-    
-            print(book1.available)
+    # Getter
+    @property
+    def available(self):
+        return self.__available
 
-        # Setter
-        @available.setter
-        def available(self, value):
-            if isinstance(value, bool):
-                self.__available = value
-            else:
-                print("Availability must be True or False.")
+        print(book1.available)
+
+    # Setter
+    @available.setter
+    def available(self, value):
+        if isinstance(value, bool):
+            self.__available = value
+        else:
+            print("Availability must be True or False.")
 
     # Display Book Information
     def display_book(self):
