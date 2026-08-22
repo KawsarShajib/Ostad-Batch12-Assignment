@@ -221,7 +221,7 @@ span {
 }
 
 .typing-text span::before {
-    content: "Web Developer";
+    content: "Full-stack Developer";
     color: #b74b4b;
     animation: words 20s infinite;
 }
@@ -233,7 +233,7 @@ span {
     width: calc(100% + 8px);
     height: 100%;
     border-left: 3px solid black;
-    right: -8px;
+    right: -8;
     animation: cursor 0.6s infinite;
 }
 
@@ -245,16 +245,16 @@ span {
 
 @keyframes words {
     0%, 20% {
-        content: "Web Developer";
+        content: "Software Developer";
     }
     21%, 40% {
-        content: "Developer";
+        content: "Database Administrator";
     }
     41%, 60% {
         content: "Web Designer";
     }
     61%, 80% {
-        content: "Youtuber";
+        content: "Banker";
     }
     81%, 100% {
         content: "Script Writer";
