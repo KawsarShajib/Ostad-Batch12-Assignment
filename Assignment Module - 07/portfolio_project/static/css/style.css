@@ -494,7 +494,10 @@ span {
 }
 
 .detail-img img {
-    width: 100%;
+    width: 110%;
+    height: 400px;
+    margin-top: 8%;
+    margin-left: -25%;
     border-radius: 2rem;
     box-shadow: 0 0 25px #b74b4b;
 }
