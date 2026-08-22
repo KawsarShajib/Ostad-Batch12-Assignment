@@ -7,7 +7,7 @@
 # --------------------------------
 student_name = input("Enter Student Name: ")
 student_id = input("Enter Student ID: ")
-department = input("Enter Department: ")
+department = input("Enter Department Name: ")
 
 print()
 
