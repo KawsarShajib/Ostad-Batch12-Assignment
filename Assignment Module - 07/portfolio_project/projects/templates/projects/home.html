@@ -1,5 +1,7 @@
-{% extends 'projects/base.html' %} {% load static %} {% block title %}Home -
-Kawsar{% endblock %} {% block content %}
+{% extends 'projects/base.html' %}
+{% load static %} 
+{% block title %}Home -Kawsar{% endblock %} 
+{% block content %}
 <section class="home" id="home">
   <div class="home-img">
     <img src="{% static 'images/kawsar.jpeg' %}" alt="Profile Image" />
@@ -18,7 +20,8 @@ Kawsar{% endblock %} {% block content %}
       <a href="#"><i class="fab fa-linkedin-in"></i></a>
       <a href="#"><i class="fab fa-github"></i></a>
     </div>
-    <a href="mailto:kawsar117@gmail.com" class="btn">Hire me</a>
+    {% comment %} <a href="mailto:kawsar117@gmail.com" class="btn">Hire Me</a> {% endcomment %}
+    <a href="{% url 'home' %}#contact" class="btn">Hire Me</a>
   </div>
 </section>
 
