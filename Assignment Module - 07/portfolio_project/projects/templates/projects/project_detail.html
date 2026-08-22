@@ -1,0 +1,31 @@
+{% extends 'projects/base.html' %}
+{% load static %}
+
+{% block title %}{{ project.title }} - Kawsar{% endblock %}
+
+{% block content %}
+<section class="project-detail">
+    <div class="detail-container">
+        {% if project.image %}
+        <div class="detail-img">
+            <img src="{{ project.image.url }}" alt="{{ project.title }}">
+        </div>
+        {% endif %}
+        <div class="detail-content">
+            <h2>{{ project.title }}</h2>
+            <p class="detail-tech"><span>Technology:</span> {{ project.technology }}</p>
+            <div class="detail-description">
+                <p>{{ project.description }}</p>
+            </div>
+            <div class="detail-links">
+                <a href="{% url 'projects' %}" class="btn">Back to Projects</a>
+                {% if project.github_link %}
+                <a href="{{ project.github_link }}" target="_blank" class="btn btn-github">
+                    <i class="fab fa-github"></i> View on GitHub
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
