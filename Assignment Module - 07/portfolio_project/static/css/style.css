@@ -212,6 +212,136 @@ span {
     box-shadow: 0 0 25px #b74b4b;
 }
 
+/* ============================================
+   SINGLE GLOWING CIRCLE AROUND ALL SOCIAL ICONS
+   ============================================ */
+
+/* .contact-social-ring {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    margin-top: 4rem;
+    padding: 2rem 3.5rem;
+    border: 2px solid #b74b4b;
+    border-radius: 1.5rem;
+    background-color: transparent;
+    box-shadow: 0 0 15px rgba(183, 75, 75, 0.4),
+                0 0 30px rgba(183, 75, 75, 0.3),
+                0 0 50px rgba(183, 75, 75, 0.2),
+                inset 0 0 15px rgba(183, 75, 75, 0.1);
+    animation: ring-glow 2.5s infinite alternate;
+    transition: 0.3s ease;
+}
+
+.contact-social-ring a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    font-size: 2rem;
+    color: #b74b4b;
+    border-radius: 1.5rem;
+    transition: 0.3s ease;
+}
+
+.contact-social-ring a:hover {
+    color: black;
+    background-color: #b74b4b;
+    transform: scale(1.2) translateY(-3px);
+    box-shadow: 0 0 15px #b74b4b;
+}
+
+.contact-social-ring:hover {
+    box-shadow: 0 0 25px #b74b4b,
+                0 0 50px #b74b4b,
+                0 0 80px rgba(183, 75, 75, 0.6),
+                inset 0 0 25px rgba(183, 75, 75, 0.3);
+    border-color: #e74b4b;
+}
+
+@keyframes ring-glow {
+    0% {
+        box-shadow: 0 0 10px rgba(183, 75, 75, 0.3),
+                    0 0 20px rgba(183, 75, 75, 0.2);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(183, 75, 75, 0.6),
+                    0 0 40px rgba(183, 75, 75, 0.4),
+                    0 0 60px rgba(183, 75, 75, 0.2);
+    }
+} */
+
+
+/* ============================================
+   CONTACT SECTION: GLOWING RECTANGLE RING
+   WITH YOUR ORIGINAL CIRCULAR SOCIAL ICONS
+   ============================================ */
+
+.contact-social-ring {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    margin-top: 4rem;
+    padding: 2.5rem 4rem;
+    border: 2px solid #b74b4b;
+    border-radius: 1.5rem;
+    background-color: transparent;
+    box-shadow: 0 0 15px rgba(183, 75, 75, 0.4),
+                0 0 30px rgba(183, 75, 75, 0.3),
+                0 0 50px rgba(183, 75, 75, 0.2),
+                inset 0 0 15px rgba(183, 75, 75, 0.1);
+    animation: ring-glow 2.5s infinite alternate;
+    transition: 0.3s ease;
+}
+
+.contact-social-ring:hover {
+    box-shadow: 0 0 25px #b74b4b,
+                0 0 50px #b74b4b,
+                0 0 80px rgba(183, 75, 75, 0.6),
+                inset 0 0 25px rgba(183, 75, 75, 0.3);
+    border-color: #e74b4b;
+}
+
+/* Your original social-icons code applied inside the ring */
+.contact-social-ring a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 4rem;
+    height: 4rem;
+    background-color: transparent;
+    border: 0.2rem solid #b74b4b;
+    font-size: 2rem;
+    border-radius: 50%;
+    transition: 0.3s ease;
+    color: #b74b4b;
+}
+
+/* Your original hover code applied inside the ring */
+.contact-social-ring a:hover {
+    color: black;
+    transform: scale(1.3) translateY(-5px);
+    background-color: #b74b4b;
+    box-shadow: 0 0 25px #b74b4b;
+}
+
+@keyframes ring-glow {
+    0% {
+        box-shadow: 0 0 10px rgba(183, 75, 75, 0.3),
+                    0 0 20px rgba(183, 75, 75, 0.2);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(183, 75, 75, 0.6),
+                    0 0 40px rgba(183, 75, 75, 0.4),
+                    0 0 60px rgba(183, 75, 75, 0.2);
+    }
+}
+
+/* end of code */
+
 .btn {
     display: inline-block;
     padding: 1rem 2.8rem;
