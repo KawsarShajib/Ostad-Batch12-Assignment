@@ -88,16 +88,22 @@ Admin Panel
 ![alt text](project_structure.png)
 
 ### Step 2: Install Dependencies
-```bash
+```
 pip install django pillow
 ```
 
-### Step 3: Start the Development Server
-```bash
+### Step 3: Run migrations
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+
+### Step 4: Start the Development Server
+```
 python manage.py runserver
 ```
 
-### Step 4: Access the Application via browser
+### Step 5: Access the Application via browser
 | URL | Purpose |
 |-----|---------|
 | `http://127.0.0.1:8000/` | Home Page |
@@ -105,7 +111,7 @@ python manage.py runserver
 | `http://127.0.0.1:8000/projects/` | Projects Listing |
 | `http://127.0.0.1:8000/admin/` | Admin Dashboard |
 
-### Step 5: Add Projects via Admin
+### Step 6: Add Projects via Admin
 1. Navigate to `http://127.0.0.1:8000/admin/`
 2. Log in with your superuser credentials (see requirements file)
 3. Click **Projects** → **Add Project**
@@ -113,6 +119,8 @@ python manage.py runserver
 5. Visit `/projects/` to see your project live
 
 ---
+
+**Author:** Kawsar Ahmed Shajib
 
 <!-- 
 ## Key Django Concepts Practiced
@@ -138,9 +146,9 @@ python manage.py runserver
 
 ## License
 
-This project is for educational purposes. Feel free to modify and use it for your own portfolio. -->
+This project is for educational purposes. Feel free to modify and use it for your own portfolio.
 
-**Author:** Kawsar Ahmed Shajib
+**Author:** Kawsar Ahmed Shajib -->
 
 ---
 
