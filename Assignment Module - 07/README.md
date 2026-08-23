@@ -42,22 +42,43 @@ This is a full-stack personal portfolio website that showcases my profile, skill
 
 ---
 
-## Screenshots
-
-
-
----
-
 ## Technologies Used
 
 | Category | Technology |
 |----------|------------|
-| Backend | Python 3.x, Django 6.1 |
+| Backend | Python , Django |
 | Database | SQLite (default) |
 | Frontend | HTML5, CSS3 |
-| Icons | Font Awesome 6.5.1 |
-| Fonts | Google Fonts (Poppins) |
-| Image Handling | Pillow |
+
+---
+
+## Screenshots
+
+--
+
+Home Page
+![alt text](screenshots/01_Home_page.jpg)
+--
+
+About Me
+![alt text](screenshots/02_about_me.jpg)
+--
+
+My Skills
+![alt text](screenshots/03_my_skills.jpg)
+--
+
+My Projects
+![alt text](screenshots/04_my_projects.jpg)
+--
+
+My Contact
+![alt text](screenshots/05_my_contact.jpg)
+--
+
+Admin Panel
+![alt text](screenshots/06_admin_panel.jpg)
+--
 
 ---
 
