@@ -1,2 +1,8 @@
 pip install django
 pip install pillow
+
+portfolio_projects : admin login
+=====================================
+username 	: kawsarahmed
+email		: kawsar117@gmail.com
+password	: Super@user123
