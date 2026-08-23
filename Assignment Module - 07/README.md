@@ -140,6 +140,7 @@ python manage.py runserver
 
 This project is for educational purposes. Feel free to modify and use it for your own portfolio. -->
 
+**Author:** Kawsar Ahmed Shajib
+
 ---
 
-**Author:** Kawsar Ahmed Shajib
