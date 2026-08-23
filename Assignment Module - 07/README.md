@@ -42,6 +42,12 @@ This is a full-stack personal portfolio website that showcases my profile, skill
 
 ---
 
+## Screenshots
+
+
+
+---
+
 ## Technologies Used
 
 | Category | Technology |
@@ -131,6 +137,7 @@ python manage.py runserver
 3. Click **Projects** → **Add Project**
 4. Fill in the form and save
 5. Visit `/projects/` to see your project live
+
 
 ---
 
