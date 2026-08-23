@@ -138,7 +138,7 @@ python manage.py runserver
 ![alt text](project_structure.png)
 
 ---
-
+<!-- 
 ## Key Django Concepts Practiced
 
 1. **Model** — `Project` model stores project data in the database
@@ -146,9 +146,9 @@ python manage.py runserver
 3. **URL** — Routes map URLs to specific views (`/`, `/about/`, `/projects/`, `/projects/<int:pk>/`)
 4. **Template** — HTML files extend `base.html` and render dynamic data
 5. **Admin** — Django admin interface for content management
-6. **Static Files** — Custom CSS for styling without JavaScript or Tailwind
+6. **Static Files** — Custom CSS for styling without JavaScript or Tailwind -->
 
----
+<!-- ---
 
 ## Troubleshooting
 
@@ -160,7 +160,7 @@ python manage.py runserver
 | Static files not loading | Verify `STATICFILES_DIRS` includes your `static/` folder path |
 | Admin button not visible | Ensure `{% url 'admin:index' %}` is used and URL names are correct |
 
----
+--- -->
 
 ## License
 
