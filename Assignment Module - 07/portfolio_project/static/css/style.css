@@ -241,7 +241,6 @@ span {
     border-color: #e74b4b;
 }
 
-/* EXACT copy of your original .social-icons a */
 .contact-social-ring a {
     display: inline-flex;
     justify-content: center;
@@ -253,10 +252,8 @@ span {
     font-size: 2rem;
     border-radius: 50%;
     transition: 0.3s ease;
-    /* NO explicit color here — icons inherit WHITE from body */
 }
 
-/* EXACT copy of your original .social-icons a:hover */
 .contact-social-ring a:hover {
     color: black;
     transform: scale(1.3) translateY(-5px);
@@ -275,7 +272,7 @@ span {
                     0 0 60px rgba(183, 75, 75, 0.2);
     }
 }
-/* end of code */
+
 
 .btn {
     display: inline-block;
@@ -668,23 +665,23 @@ footer {
    ============================================ */
 
 /* When #skills is targeted in URL, highlight Skills nav link */
-html:has(#skills:target) nav a[href*="#skills"] {
+/* html:has(#skills:target) nav a[href*="#skills"] {
     color: #b74b4b;
     border-bottom: 3px solid #b74b4b;
-}
+} */
 
 /* When #contact is targeted in URL, highlight Contact nav link */
-html:has(#contact:target) nav a[href*="#contact"] {
+/* html:has(#contact:target) nav a[href*="#contact"] {
     color: #b74b4b;
     border-bottom: 3px solid #b74b4b;
-}
+} */
 
 /* Mobile responsive: match the existing active link padding */
-@media(max-width:995px) {
+/* @media(max-width:995px) {
     html:has(#skills:target) nav a[href*="#skills"],
     html:has(#contact:target) nav a[href*="#contact"] {
         padding: 1rem;
         border-radius: 0.5rem;
         border-bottom: 0.5rem solid #b74b4b;
     }
-}
+} */
