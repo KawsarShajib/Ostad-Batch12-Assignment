@@ -136,11 +136,9 @@ python manage.py runserver
 | Static files not loading | Verify `STATICFILES_DIRS` includes your `static/` folder path |
 | Admin button not visible | Ensure `{% url 'admin:index' %}` is used and URL names are correct |
 
---- -->
-
 ## License
 
-This project is for educational purposes. Feel free to modify and use it for your own portfolio.
+This project is for educational purposes. Feel free to modify and use it for your own portfolio. -->
 
 ---
 
