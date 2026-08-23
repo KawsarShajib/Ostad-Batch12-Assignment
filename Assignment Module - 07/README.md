@@ -54,31 +54,23 @@ This is a full-stack personal portfolio website that showcases my profile, skill
 
 ## Screenshots
 
---
-
 Home Page
 ![alt text](screenshots/01_Home_page.jpg)
---
 
 About Me
 ![alt text](screenshots/02_about_me.jpg)
---
 
 My Skills
 ![alt text](screenshots/03_my_skills.jpg)
---
 
 My Projects
 ![alt text](screenshots/04_my_projects.jpg)
---
 
 My Contact
 ![alt text](screenshots/05_my_contact.jpg)
---
 
 Admin Panel
 ![alt text](screenshots/06_admin_panel.jpg)
---
 
 ---
 
@@ -89,57 +81,17 @@ Admin Panel
 - pip (Python package manager)
 - Django 6.1 or higher
 
-### Step 1: Clone or Create the Project
-```bash
-django-admin startproject portfolio_project
-cd portfolio_project
-python manage.py startapp projects
-```
-
-### Step 2: Install Dependencies
+### Step 1: Install Dependencies
 ```bash
 pip install django pillow
 ```
 
-### Step 3: Configure Settings
-Add the following to `portfolio_project/settings.py`:
-```python
-INSTALLED_APPS = [
-    # default apps...
-    'projects',
-]
+### Step 2: Download the project from github
+- Strictly follow the project structure
 
-STATICFILES_DIRS = [BASE_DIR / 'static']
+![alt text](project_structure.png)
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-```
-
-### Step 4: Create Folder Structure
-```bash
-mkdir -p static/css static/images media/project_images
-mkdir -p projects/templates/projects
-```
-
-### Step 5: Run Migrations
-```bash
-python manage.py makemigrations
-python manage.py migrate
-```
-
-### Step 6: Create Superuser
-```bash
-python manage.py createsuperuser
-# Enter username, email, and password when prompted
-```
-
-### Step 7: Add Your Profile Picture
-Place your profile image at:
-```
-static/images/kawsar.jpeg
-```
-
-### Step 8: Start the Development Server
+### Step 3: Start the Development Server
 ```bash
 python manage.py runserver
 ```
@@ -159,14 +111,8 @@ python manage.py runserver
 4. Fill in the form and save
 5. Visit `/projects/` to see your project live
 
-
 ---
 
-## Project Structure
-
-![alt text](project_structure.png)
-
----
 <!-- 
 ## Key Django Concepts Practiced
 
