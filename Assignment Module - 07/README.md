@@ -60,6 +60,7 @@ This is a full-stack personal portfolio website that showcases my profile, skill
 ### Prerequisites
 - Python 3.10 or higher
 - pip (Python package manager)
+- Django 6.1 or higher
 
 ### Step 1: Clone or Create the Project
 ```bash
