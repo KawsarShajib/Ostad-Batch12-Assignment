@@ -25,13 +25,13 @@ This is a full-stack personal portfolio website that showcases my profile, skill
 - Delete projects
 - Search and filter projects by technology or date
 
-### Design & UX
+<!-- ### Design & UX
 - Responsive navbar with active page highlighting
 - Mobile-friendly menu
 - Animated typing text effect on homepage
 - Hover animations on project cards, buttons, and social icons
 - Custom color-coded Admin button in navigation
-- Footer on all pages
+- Footer on all pages -->
 
 ### Bonus Features
 - About page with developer story
@@ -81,22 +81,23 @@ Admin Panel
 - pip (Python package manager)
 - Django 6.1 or higher
 
-### Step 1: Install Dependencies
-```bash
-pip install django pillow
-```
 
-### Step 2: Download the project from github
+### Step 1: Download the full project from github
 - Strictly follow the project structure
 
 ![alt text](project_structure.png)
+
+### Step 2: Install Dependencies
+```bash
+pip install django pillow
+```
 
 ### Step 3: Start the Development Server
 ```bash
 python manage.py runserver
 ```
 
-### Step 9: Access the Application
+### Step 4: Access the Application via browser
 | URL | Purpose |
 |-----|---------|
 | `http://127.0.0.1:8000/` | Home Page |
@@ -104,9 +105,9 @@ python manage.py runserver
 | `http://127.0.0.1:8000/projects/` | Projects Listing |
 | `http://127.0.0.1:8000/admin/` | Admin Dashboard |
 
-### Step 10: Add Projects via Admin
+### Step 5: Add Projects via Admin
 1. Navigate to `http://127.0.0.1:8000/admin/`
-2. Log in with your superuser credentials
+2. Log in with your superuser credentials (see requirements file)
 3. Click **Projects** → **Add Project**
 4. Fill in the form and save
 5. Visit `/projects/` to see your project live
