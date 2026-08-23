@@ -6,18 +6,18 @@ A clean, responsive personal portfolio built with Django to practice the core Dj
 
 ## Description
 
-This is a full-stack personal portfolio website that showcases your profile, skills, and projects. It includes a custom admin panel to manage projects dynamically without touching the code. The design features a modern dark theme with smooth hover effects, animated typing text, and a fully responsive layout.
+This is a full-stack personal portfolio website that showcases my profile, skills, and projects. It includes a custom admin panel to manage projects dynamically without touching the code. The design features a modern dark theme with smooth hover effects, animated typing text, and a fully responsive layout.
 
 ---
 
 ## Features
 
 ### Core Pages
-- **Home Page** — Displays your name, profile picture, short introduction, animated typing text, and social media links
+- **Home Page** — Displays portfolio name, profile picture, short introduction, animated typing text, and social media links
 - **About Page** — Detailed biography with profile image and call-to-action button
-- **Projects Page** — Grid layout showing all projects with title, technology stack, description preview, and action buttons
-- **Project Detail Page** — Individual project view at `/projects/<id>/` with full description, technology used, GitHub link, and project image
-- **Admin Panel** — Secure dashboard at `/admin/` for full CRUD operations on projects
+- **Projects Page** — Showing all projects with title, technology used, description, preview, and action buttons
+- **Project Detail Page** — Individual project view with full description, technology used, GitHub link, and project image
+- **Admin Panel** — Secure dashboard for full CRUD operations on projects
 
 ### Admin Capabilities
 - Add new projects with title, description, technology, GitHub link, and image
@@ -27,7 +27,7 @@ This is a full-stack personal portfolio website that showcases your profile, ski
 
 ### Design & UX
 - Responsive navbar with active page highlighting
-- Mobile-friendly hamburger menu (CSS-only, no JavaScript)
+- Mobile-friendly menu
 - Animated typing text effect on homepage
 - Hover animations on project cards, buttons, and social icons
 - Custom color-coded Admin button in navigation
@@ -135,31 +135,7 @@ python manage.py runserver
 
 ## Project Structure
 
-```
-portfolio_project/
-├── manage.py
-├── portfolio_project/
-│   ├── settings.py
-│   ├── urls.py
-│   └── ...
-├── projects/
-│   ├── models.py          # Project model
-│   ├── views.py           # Home, About, Projects, Detail views
-│   ├── urls.py            # App URL routing
-│   ├── admin.py           # Admin panel configuration
-│   └── templates/
-│       └── projects/
-│           ├── base.html
-│           ├── home.html
-│           ├── about.html
-│           ├── projects.html
-│           └── project_detail.html
-└── static/
-    ├── css/
-    │   └── style.css      # All custom styling
-    └── images/
-        └── kawsar.jpeg    # Profile picture
-```
+![alt text](project_structure.png)
 
 ---
 
