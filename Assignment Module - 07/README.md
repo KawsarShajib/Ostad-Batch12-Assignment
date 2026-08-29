@@ -92,8 +92,9 @@ Admin Panel
 pip install django pillow
 ```
 
-### Step 3: Run migrations
+### Step 3: In Terminal write following commands to Run migrations
 ```
+cd portfolio_project
 python manage.py makemigrations
 python manage.py migrate
 ```
