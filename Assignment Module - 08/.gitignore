@@ -1,0 +1,67 @@
+# ==============================
+# Virtual Environment
+# ==============================
+my_env/
+venv/
+env/
+.venv/
+
+# ==============================
+# Python cache / compiled files
+# ==============================
+__pycache__/
+*.py[cod]
+*.pyo
+
+# ==============================
+# Environment variables / Secrets
+# ==============================
+.env
+.env.*
+!.env.example
+
+# ==============================
+# Database files
+# ==============================
+*.sqlite3
+*.sqlite3-journal
+db.sqlite3
+
+# ==============================
+# Django generated files
+# ==============================
+*.log
+media/
+
+# ==============================
+# IDE / Editor
+# ==============================
+.vscode/
+.idea/
+
+# ==============================
+# OS generated files
+# ==============================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==============================
+# Python packaging
+# ==============================
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ==============================
+# Testing / Coverage
+# ==============================
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ==============================
+# Jupyter
+# ==============================
+.ipynb_checkpoints/
