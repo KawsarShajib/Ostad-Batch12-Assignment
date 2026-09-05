@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}{% if is_edit %}Edit Report{% else %}New Report{% endif %} | Campus Lost & Found{% endblock %}
+{% block content %}
+
+<h2 class="mb-4">{% if is_edit %}Edit Report{% else %}Create a New Report{% endif %}</h2>
+
+<form method="post" enctype="multipart/form-data" class="card p-4 shadow-sm">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label class="form-label">Item Name</label>
+        {{ form.item_name }}
+        {{ form.item_name.errors }}
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Type</label>
+            {{ form.report_type }}
+            {{ form.report_type.errors }}
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Category</label>
+            {{ form.category }}
+            {{ form.category.errors }}
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        {{ form.description }}
+        {{ form.description.errors }}
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Location</label>
+            {{ form.location }}
+            {{ form.location.errors }}
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Date</label>
+            {{ form.date }}
+            {{ form.date.errors }}
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Contact Information</label>
+        {{ form.contact_info }}
+        {{ form.contact_info.errors }}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Image (optional)</label>
+        {% if is_edit and report.image %}
+        <div class="mb-2"><img src="{{ report.image.url }}" style="max-height:120px;"></div>
+        {% endif %}
+        {{ form.image }}
+        {{ form.image.errors }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        {% if is_edit %}Save Changes{% else %}Submit Report{% endif %}
+    </button>
+    <a href="{% if is_edit %}{% url 'report_detail' report.pk %}{% else %}{% url 'report_list' %}{% endif %}" class="btn btn-secondary">Cancel</a>
+</form>
+
+{% endblock %}

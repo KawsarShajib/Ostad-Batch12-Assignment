@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}{{ report.item_name }} | Campus Lost & Found{% endblock %}
+{% block content %}
+
+<div class="card shadow-sm">
+    {% if report.image %}
+    <img src="{{ report.image.url }}" class="card-img-top" style="max-height:400px; object-fit:cover;">
+    {% endif %}
+    <div class="card-body">
+        <span class="badge {% if report.report_type == 'Lost' %}bg-danger{% else %}bg-success{% endif %}">
+            {{ report.report_type }}
+        </span>
+        <span class="badge {% if report.status == 'Active' %}bg-warning text-dark{% else %}bg-secondary{% endif %}">
+            {{ report.status }}
+        </span>
+
+        <h2 class="card-title mt-3">{{ report.item_name }}</h2>
+        <p class="text-muted">Category: {{ report.category }}</p>
+
+        <p>{{ report.description }}</p>
+
+        <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item"><strong>Location:</strong> {{ report.location }}</li>
+            <li class="list-group-item"><strong>Date:</strong> {{ report.date }}</li>
+            <li class="list-group-item"><strong>Contact:</strong> {{ report.contact_info }}</li>
+            <li class="list-group-item"><strong>Reported by:</strong> {{ report.owner.username }}</li>
+            <li class="list-group-item"><strong>Posted:</strong> {{ report.created_at|date:"M d, Y H:i" }}</li>
+        </ul>
+
+        {% if user == report.owner %}
+        <div class="d-flex gap-2">
+            <a href="{% url 'report_update' report.pk %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'report_delete' report.pk %}" class="btn btn-outline-danger">Delete</a>
+            {% if report.status == 'Active' %}
+            <form method="post" action="{% url 'report_resolve' report.pk %}">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="report_detail">
+                <button type="submit" class="btn btn-success">Mark as Resolved</button>
+            </form>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<a href="{% url 'report_list' %}" class="btn btn-link mt-3">&larr; Back to all reports</a>
+
+{% endblock %}
