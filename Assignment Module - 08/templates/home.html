@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Home | Campus Lost & Found{% endblock %}
+{% block content %}
+
+<div class="p-5 mb-4 bg-primary text-white rounded-3">
+    <h1 class="display-6 fw-bold">Lost something on campus? Found something?</h1>
+    <p class="fs-5">Report it here and help reunite items with their owners.</p>
+    {% if user.is_authenticated %}
+        <a href="{% url 'report_create' %}" class="btn btn-light btn-lg">+ Create a Report</a>
+    {% else %}
+        <a href="{% url 'register' %}" class="btn btn-light btn-lg">Get Started</a>
+    {% endif %}
+</div>
+
+<div class="row mb-4 text-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="text-primary">{{ total_active }}</h2>
+                <p class="mb-0">Active Reports</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="text-success">{{ total_resolved }}</h2>
+                <p class="mb-0">Resolved Reports</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 class="mb-3">Recent Active Reports</h3>
+<div class="row">
+    {% for report in recent_reports %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            {% if report.image %}
+            <img src="{{ report.image.url }}" class="card-img-top" style="height:180px; object-fit:cover;">
+            {% endif %}
+            <div class="card-body">
+                <span class="badge {% if report.report_type == 'Lost' %}bg-danger{% else %}bg-success{% endif %}">
+                    {{ report.report_type }}
+                </span>
+                <h5 class="card-title mt-2">{{ report.item_name }}</h5>
+                <p class="card-text text-muted small">{{ report.category }} &middot; {{ report.location }}</p>
+                <a href="{% url 'report_detail' report.pk %}" class="btn btn-outline-primary btn-sm">View Details</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-muted">No active reports yet.</p>
+    {% endfor %}
+</div>
+
+<div class="text-center">
+    <a href="{% url 'report_list' %}" class="btn btn-secondary">View All Reports</a>
+</div>
+
+{% endblock %}
