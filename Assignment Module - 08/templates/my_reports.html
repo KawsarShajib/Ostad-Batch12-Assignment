@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}My Reports | Campus Lost & Found{% endblock %}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>My Reports</h2>
+    <a href="{% url 'report_create' %}" class="btn btn-primary">+ New Report</a>
+</div>
+
+{% if page_obj %}
+<div class="table-responsive">
+<table class="table table-hover align-middle bg-white shadow-sm">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for report in page_obj %}
+        <tr>
+            <td><a href="{% url 'report_detail' report.pk %}">{{ report.item_name }}</a></td>
+            <td>
+                <span class="badge {% if report.report_type == 'Lost' %}bg-danger{% else %}bg-success{% endif %}">
+                    {{ report.report_type }}
+                </span>
+            </td>
+            <td>{{ report.category }}</td>
+            <td>
+                <span class="badge {% if report.status == 'Active' %}bg-warning text-dark{% else %}bg-secondary{% endif %}">
+                    {{ report.status }}
+                </span>
+            </td>
+            <td>{{ report.date }}</td>
+            <td class="d-flex gap-1">
+                <a href="{% url 'report_update' report.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                <a href="{% url 'report_delete' report.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                {% if report.status == 'Active' %}
+                <form method="post" action="{% url 'report_resolve' report.pk %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="my_reports">
+                    <button type="submit" class="btn btn-sm btn-outline-success">Resolve</button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+{% if page_obj.has_other_pages %}
+<nav>
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+        {% endif %}
+        <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+        {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+{% else %}
+<p class="text-muted">You haven't created any reports yet.</p>
+{% endif %}
+
+{% endblock %}
