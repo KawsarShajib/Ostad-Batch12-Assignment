@@ -20,8 +20,8 @@ def home(request):
     recent_reports = Report.objects.filter(status=Report.STATUS_ACTIVE)[:6]
     context = {
         'recent_reports': recent_reports,
-        'total_active': Report.objects.filter(status=Report.STATUS_ACTIVE).count(),
-        'total_resolved': Report.objects.filter(status=Report.STATUS_RESOLVED).count(),
+        'total_active': int(Report.objects.filter(status=Report.STATUS_ACTIVE).count()),
+        'total_resolved': int(Report.objects.filter(status=Report.STATUS_RESOLVED).count()),
     }
     return render(request, 'home.html', context)
 
