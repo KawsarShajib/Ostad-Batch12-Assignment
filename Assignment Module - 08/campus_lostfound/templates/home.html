@@ -12,7 +12,7 @@
     {% endif %}
 </div>
 
-<div class="row mb-4 text-center">
+{% comment %} <div class="row mb-4 text-center">
     <div class="col-md-4">
         <div class="card shadow-sm">
             <div class="card-body">
@@ -29,6 +29,26 @@
             </div>
         </div>
     </div>
+</div> {% endcomment %}
+
+
+<div class="row mb-4 text-center">
+    <div class="col-md-4">
+        <div class="card shadow-sm bg-warning-subtle border-0">
+            <div class="card-body">
+                <h2 class="text-warning-emphasis">{{ total_active }}</h2>
+                <p class="mb-0">Active Reports</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm bg-success-subtle border-0">
+            <div class="card-body">
+                <h2 class="text-success-emphasis">{{ total_resolved }}</h2>
+                <p class="mb-0">Resolved Reports</p>
+            </div>
+        </div>
+    </div>
     <div class="col-md-4">
         <div class="card shadow-sm">
             <div class="card-body">
@@ -37,27 +57,7 @@
             </div>
         </div>
     </div>
-</div>
-
-
-{% comment %} <div class="row mb-4 text-center">
-    <div class="col-md-6">
-        <div class="card shadow-sm bg-warning-subtle border-0">
-            <div class="card-body">
-                <h2 class="text-warning-emphasis">{{ total_active }}</h2>
-                <p class="mb-0">Active Reports</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="card shadow-sm bg-success-subtle border-0">
-            <div class="card-body">
-                <h2 class="text-success-emphasis">{{ total_resolved }}</h2>
-                <p class="mb-0">Resolved Reports</p>
-            </div>
-        </div>
-    </div>
-</div> {% endcomment %}
+</div> 
 
 <h3 class="mb-3">Recent Active Reports</h3>
 <div class="row">

@@ -10,6 +10,7 @@ env/
 # Python cache / compiled files
 # ==============================
 __pycache__/
+.pyc
 *.py[cod]
 *.pyo
 
@@ -23,9 +24,9 @@ __pycache__/
 # ==============================
 # Database files
 # ==============================
-*.sqlite3
-*.sqlite3-journal
-db.sqlite3
+# *.sqlite3
+# *.sqlite3-journal
+# db.sqlite3
 
 # ==============================
 # Django generated files
