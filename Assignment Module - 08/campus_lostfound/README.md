@@ -4,11 +4,11 @@ A Django web app for reporting and finding lost/found items on campus.
 
 ## Features implemented
 
-- **Authentication**: register, login, logout 
-- **Reports CRUD**: create, view (list + detail), edit, and delete reports. 
+- **Authentication**: register, login, logout (Django's built-in auth system, custom register view/form).
+- **Reports CRUD**: create, view (list + detail), edit, and delete reports. Only the owner can edit/delete/resolve their own report (enforced in views, returns 403 otherwise).
 - **Fields**: item name, type (Lost/Found), category, description, location, date, contact info, optional image.
-- **Search & filter**: by item name/description/location text, category, type, and status 
-- **Status**: Active / Resolved. Owners can mark their own report "Resolved" 
+- **Search & filter**: by item name/description/location text, category, type, and status — combinable, on `/reports/`.
+- **Status**: Active / Resolved. Owners can mark their own report "Resolved" with one click.
 - **Templates**: `base.html` (navbar/layout) extended by `home.html`, `reports.html`, `report_detail.html`, `report_form.html` (create+edit), `report_confirm_delete.html`, `login.html`, `register.html`, `my_reports.html`.
 - **Custom middleware** (`reports/middleware.py`): logs `User | Method | Path | Time` to the terminal for every request.
 - **Django messages**: success/info messages shown after register, login/logout, create, update, delete, and resolve actions.
@@ -54,7 +54,6 @@ Assignment Module - 08/
 ├── README.md
 └── requirements.txt
 
-
 ```
 
 ## Setup & run
@@ -62,7 +61,7 @@ Assignment Module - 08/
 ```bash
 # 1. Create and activate a virtual environment (recommended)
 python -m venv venv
-venv\Scripts\activate
+source venv/bin/activate      # Windows: venv\Scripts\activate
 
 # 2. Install dependencies
 pip install -r requirements.txt
@@ -72,10 +71,6 @@ python manage.py migrate
 
 # 4. (Optional) Create an admin superuser
 python manage.py createsuperuser
-
-# OR you can replace the db.sqlite3 file 
-# (with login credentials as username=kawsar, password=123)
-
 
 # 5. Run the dev server
 python manage.py runserver
@@ -91,7 +86,20 @@ Then visit:
 While the server runs, watch the terminal — every request logs a line like:
 
 ```
-User: kawsar | Method: POST | Path: /reports/create/ | Time: 0.08s
+User: rahim | Method: POST | Path: /reports/create/ | Time: 0.08s
 ```
 
 
+
+
+## Notes / design choices
+
+- `Report.owner` is a `ForeignKey` to Django's `User` model; every report is tied to whoever created it (`request.user` at creation time).
+
+- Ownership checks happen in the view (`report.is_owner(request.user)`); non-owners attempting to edit/delete/resolve get an HTTP 403.
+
+- The "Resolved" status is only changeable via a dedicated POST endpoint (`/reports/<id>/resolve/`), not exposed as an editable field on the normal edit form, so a report can't accidentally be resolved via the regular edit flow.
+
+- Search/filter (`ReportSearchForm`) uses Django ORM `Q` objects for the text search (`item_name`, `description`, `location`) combined with exact filters for type/category/status.
+
+- Image upload uses Pillow + `ImageField`; uploaded images are stored under `media/report_images/` and served via `MEDIA_URL` in development (`DEBUG=True`).

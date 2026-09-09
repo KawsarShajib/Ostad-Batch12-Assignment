@@ -63,3 +63,28 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+
+
+
+{% comment %} 
+
+## Step 13 — `templates/base.html` (the shared layout, build this first)
+Every other page extends this one, so build it first. 
+
+**Key template concepts here, used everywhere from now on:**
+
+- `{% load static %}` + `{% static 'css/style.css' %}` — tells Django to generate the correct URL for our CSS file based on `STATIC_URL`.
+
+- `{% block title %}...{% endblock %}` and `{% block content %}{% endblock %}` — these are **placeholders**. Child templates fill them in via `{% extends "base.html" %}` + their own `{% block content %}...{% endblock %}`. Anything outside a block in a child template is ignored.
+
+- `{% url 'home' %}` — generates the actual path for the URL named `'home'` (defined back in `reports/urls.py`). Never hardcode `href="/"` — always use `{% url %}`.
+
+- `{% if user.is_authenticated %}` — every template automatically has access to `user` (the logged-in user, or an "anonymous user" object) thanks to the `django.contrib.auth.context_processors.auth` line we added to `TEMPLATES` in Step 5.
+
+- `{% if messages %} ... {{ message.tags }} ...` — this is where every `messages.success(...)` / `messages.info(...)` call from your views actually gets displayed, exactly once, then cleared. `message.tags` becomes `success`, `info`, etc. — matching Bootstrap's `alert-success`, `alert-info` classes automatically.
+
+- Logout is a `<form method="post">`, not a plain link — Django's `LogoutView` only accepts `POST`, so a simple `<a href="/logout/">` wouldn't work (this also protects against accidentally logging someone out just by them visiting a link).
+
+
+{% endcomment %} 

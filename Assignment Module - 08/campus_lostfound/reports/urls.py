@@ -20,3 +20,21 @@ urlpatterns = [
     # Own reports
     path('my-reports/', views.my_reports, name='my_reports'),
 ]
+
+
+## Step 12 — Write `reports/urls.py` (new file)
+
+# Create this file inside `reports/`:
+
+"""
+
+What's going on:
+----------------
+- `path('reports/<int:pk>/edit/', views.report_update, name='report_update')` — `<int:pk>` is a **URL converter**: it captures a number from the address (e.g. `5` from `/reports/5/edit/`) and passes it into the view as the `pk` keyword argument.
+
+- `.as_view()` — class-based views (like `CustomLoginView`) need this conversion to become a plain function Django's router can call; regular function-based views (`views.home`) don't.
+
+- `name='...'` — gives each URL a permanent nickname. Templates and views reference URLs by this name (`{% url 'report_detail' report.pk %}`, `redirect('report_detail', pk=report.pk)`) instead of hardcoding the path string — so if you ever change a path, nothing breaks elsewhere.
+
+
+"""

@@ -72,3 +72,14 @@
 {% endif %}
 
 {% endblock %}
+
+
+
+{% comment %} 
+ 
+## Step 21 — `templates/my_reports.html`
+
+
+Same data (`page_obj`) as `reports.html`, but pre-filtered by the view to just the logged-in user's own reports (Step 11, `my_reports` view) — no ownership check needed here since the query already guarantees it.
+
+{% endcomment %}

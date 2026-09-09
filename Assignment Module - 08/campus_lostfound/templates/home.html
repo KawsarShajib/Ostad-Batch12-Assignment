@@ -12,25 +12,28 @@
     {% endif %}
 </div>
 
-{% comment %} <div class="row mb-4 text-center">
-    <div class="col-md-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h2 class="text-primary">{{ total_active }}</h2>
-                <p class="mb-0">Active Reports</p>
-            </div>
-        </div>
-    </div>    
-    <div class="col-md-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h2 class="text-success">{{ total_resolved }}</h2>
-                <p class="mb-0">Resolved Reports</p>
-            </div>
-        </div>
-    </div>
-</div> {% endcomment %}
 
+{% comment %} 
+ 
+Use Bootstrap’s subtle background classes to get light green and light yellow cards:
+- bg-warning-subtle →   light yellow background
+- bg-success-subtle →   light green background
+- border-0  removes the default card border for a cleaner look
+- text-success-emphasis / text-warning-emphasis keep the numbers readable and color-coordinated 
+
+These classes are built into Bootstrap 5.3+; if you’re on an older Bootstrap version, you can add custom CSS instead:
+
+.card-light-green {
+  background-color: #d4edda;
+}
+.card-light-yellow {
+  background-color: #fff3cd;
+}
+
+Then use card-light-green and card-light-yellow on the two cards.
+
+
+{% endcomment %}
 
 <div class="row mb-4 text-center">
     <div class="col-md-4">
@@ -58,6 +61,40 @@
         </div>
     </div>
 </div> 
+
+
+{% comment %}
+ 
+ ## Step 14 — `templates/home.html` 
+
+
+This snippet is Bootstrap HTML that renders two side‑by‑side stat cards: one for “Active Reports” and one for “Resolved Reports,” pulling counts from template variables ({{ total_active }} and {{ total_resolved }}).
+
+What each part does : 
+
+<div class="row mb-4 text-center">
+Creates a Bootstrap row with bottom margin (mb-4) and centers text (text-center).
+
+<div class="col-md-6"> (twice)
+Splits the row into two equal columns on medium+ screens (each takes 6 of 12 columns). On small screens they’ll stack vertically.
+
+<div class="card shadow-sm">
+Uses Bootstrap’s card component with a subtle shadow.
+
+<h2 class="text-primary"> / <h2 class="text-success">
+Colors the
+
+This Bootstrap snippet creates a responsive row with two dashboard statistic cards:
+
+-   Active Reports displays the Django template variable {{ total_active }} in blue.
+-   Resolved Reports displays {{ total_resolved }} in green.
+-   On medium screens and larger, each card takes half the row (col-md-6); 
+    on smaller screens, they stack vertically.
+-   shadow-sm adds a subtle shadow, mb-4 adds bottom margin, and text-center centers the text.
+
+{% endcomment %}
+
+
 
 <h3 class="mb-3">Recent Active Reports</h3>
 <div class="row">
@@ -87,3 +124,15 @@
 </div>
 
 {% endblock %}
+
+
+
+{% comment %} 
+
+`{{ total_active }}` and `recent_reports` come straight from the `context` dictionary the `home` view passed to `render(...)` back in Step 11.
+
+`{% for report in recent_reports %} ... {% empty %} ... {% endfor %}` 
+— the `{% empty %}` clause shows only if the list is empty, so you never need a separate `{% if %}` around the loop. 
+
+
+{% endcomment %}

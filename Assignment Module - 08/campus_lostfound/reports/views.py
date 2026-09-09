@@ -172,3 +172,37 @@ def my_reports(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'my_reports.html', {'page_obj': page_obj})
+
+
+
+
+## Step 11 — Write `reports/views.py`
+
+# Replace the contents of the auto-generated `reports/views.py`:
+
+"""
+
+**Going through this function by function:**
+
+- **`home`** — no login required. Pulls the 6 newest active reports (`[:6]` slices the queryset, which Django translates into `LIMIT 6` in SQL) plus two counts for the stat cards.
+
+- **`register`** — if you're already logged in, bounce to home. Otherwise: `GET` shows a blank form; `POST` validates it, and if valid, `form.save()` (inherited from `UserCreationForm`) creates the actual `User` row with a properly hashed password. `login(request, user)` immediately logs them in — no separate login step needed after registering.
+
+- **`CustomLoginView` / `CustomLogoutView`** — rather than write login/logout from scratch, we reuse Django's built-in `LoginView`/`LogoutView` (they already handle password checking, sessions, redirect-after-login, etc.) and just override small bits: which template to use, and firing a `messages.success(...)` / `messages.info(...)` at the right moment.
+
+- **`report_list`** — this is the search/filter engine. `ReportSearchForm(request.GET or None)` binds the form to whatever's in the URL's query string (e.g. `?q=ID+Card&report_type=Lost`). `Q(...)` objects combined with `|` mean "match ANY of these fields"; each separate `.filter(...)` call chains together as AND. `Paginator(reports, 9)` splits the results into pages of 9.
+
+- **`report_detail`** — the simplest view: fetch one report by primary key or return a 404 if it doesn't exist (`get_object_or_404`).
+
+- **`report_create`** — guarded by `@login_required` (redirects to `/login/` if you're not signed in). The key trick: `form.save(commit=False)` builds the `Report` object in memory *without* writing to the database yet, so we can attach `report.owner = request.user` first, then call `report.save()` ourselves. `request.FILES` is passed alongside `request.POST` specifically because this form can include an uploaded image — file uploads travel separately from regular form fields.
+
+- **`report_update`** — same GET/POST pattern as create, but starts with a permission check: `if not report.is_owner(request.user): return HttpResponseForbidden(...)`. This runs on the server, so it can't be bypassed by hiding a button in the browser — someone would have to literally break Django's request handling to get around it.
+
+- **`report_delete`** — same ownership check. On `GET`, shows a confirmation page instead of deleting immediately (never delete on a simple page visit — a stray link or crawler bot could trigger it). Only an actual `POST` (the confirm button) deletes.
+
+- **`report_resolve`** — stacked decorators: `@login_required` then `@require_POST`. `require_POST` means this view *only* accepts POST requests — visiting its URL directly with a browser address bar (which sends GET) gets rejected. That's intentional: resolving should only happen by clicking the button, which submits a form.
+
+- **`my_reports`** — filters to `owner=request.user`, so you only ever see your own reports here (as opposed to `report_list`, which shows everyone's).
+
+
+"""

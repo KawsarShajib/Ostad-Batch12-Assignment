@@ -30,3 +30,14 @@
 </div>
 
 {% endblock %}
+
+
+{% comment %} 
+ 
+## Step 19 — `templates/login.html`
+ 
+`{% for field in form %}` — instead of listing `form.username`, `form.password` by hand, this loops over *whatever* fields the form actually has, so it works automatically no matter how the form changes. 
+
+`form.non_field_errors` catches errors that aren't tied to one specific field — like "wrong username or password."
+
+{% endcomment %}

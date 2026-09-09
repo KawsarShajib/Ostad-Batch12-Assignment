@@ -67,3 +67,17 @@
 </form>
 
 {% endblock %}
+
+
+{% comment %} 
+
+ ## Step 17 — `templates/report_form.html` (shared by both Create and Edit)
+
+
+Two important details:
+
+- **`enctype="multipart/form-data"`** on the `<form>` tag — **required** whenever a form includes a file upload (our optional image). Without it, the image field silently gets dropped and never reaches `request.FILES` in the view.
+
+- **`{% if is_edit %}`** everywhere — this single template serves both `report_create` and `report_update` (Step 11 passed `is_edit=True`/`False` into the context), so the heading, submit button text, and "Cancel" link destination all adapt instead of needing two nearly-identical files.
+
+{% endcomment %}

@@ -46,3 +46,13 @@
 <a href="{% url 'report_list' %}" class="btn btn-link mt-3">&larr; Back to all reports</a>
 
 {% endblock %}
+
+
+{% comment %} 
+ 
+## Step 16 — `templates/report_detail.html`
+
+ 
+`{% if user == report.owner %}` is what **hides** the Edit/Delete/Resolve buttons from anyone who isn't the owner — but remember, this is just a UI nicety. The *real* security check is the `report.is_owner(request.user)` check inside the views (Step 11) — even if someone crafted a request without seeing this button, the view would still reject them with a 403.
+
+{% endcomment %}

@@ -67,3 +67,20 @@
 {% endif %}
 
 {% endblock %}
+
+
+
+{% comment %} 
+ 
+## Step 15 — `templates/reports.html` (the searchable list) 
+ 
+
+Note: 
+------
+`<form method="get">` here, not `post` 
+— search should be a `GET` request, so the filters show up in the URL (e.g. `?q=ID+Card&report_type=Lost`) and can be bookmarked/shared/refreshed safely. 
+
+`{{ report.description|truncatewords:15 }}` is a **template filter** 
+— cuts the description down to 15 words for the card preview.
+
+{% endcomment %}

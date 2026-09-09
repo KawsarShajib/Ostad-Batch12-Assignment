@@ -1,3 +1,13 @@
+/* 
+## Step 22 — `static/css/style.css` 
+
+Why this file exists: 
+
+Django's built-in login form doesn't know about Bootstrap CSS classes, so instead of hand-editing every input's `class` attribute, this stylesheet styles raw `<input>`/`<select>`/`<textarea>` tags directly — a shortcut so *every* form looks consistent with almost no extra template work.
+
+*/
+
+
 body {
     background-color: #f5f6fa;
 }
@@ -22,3 +32,18 @@ textarea {
 .card-title {
     font-weight: 600;
 }
+
+
+
+/* 
+
+
+.card-light-green {
+  background-color: #d4edda;
+}
+.card-light-yellow {
+  background-color: #fff3cd;
+} 
+  
+
+*/
