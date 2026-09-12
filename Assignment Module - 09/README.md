@@ -2,15 +2,15 @@
 
 A Simple Blog Application built with Django:
 
-● Django Project & App 
-● Models 
-● Basic CRUD operations 
-● Django Forms 
-● Templates 
-● User Authentication 
-● Template inheritance 
-● Login/logout functionality 
-● Connecting users with their blog posts 
+-  Django Project & App 
+-  Models 
+-  Basic CRUD operations 
+-  Django Forms 
+-  Templates 
+-  User Authentication 
+-  Template inheritance 
+-  Login/logout functionality 
+-  Connecting users with their blog posts 
 
 ## Features
 
@@ -50,17 +50,19 @@ blog_project/
 │       ├── edit_post.html
 │       ├── delete_post.html
 │       └── my_posts.html
+├── db.sqlite3
 ├── manage.py
 ├── requirements.txt
 └── README.md
+└── project_structure.png
 ```
 
 ## Setup & Run
 
-1. **Create virtual environment (recommended)**
+1. **Create virtual environment**
    ```bash
    python -m venv venv
-   source venv/bin/activate   # On Windows: venv\Scripts\activate
+   source venv\Scripts\activate
    ```
 
 2. **Install dependencies**
@@ -73,7 +75,7 @@ blog_project/
    python manage.py migrate
    ```
 
-4. **Create a superuser (optional, for admin)**
+4. **Create a superuser**
    ```bash
    python manage.py createsuperuser
    ```
@@ -92,6 +94,7 @@ blog_project/
 |----------|-----------|------------------------|
 | admin    | admin123  | Superuser |
 | kawsar    | Sonali@123   | Sample user |
+| rahim    | pass123   | Sample user |
 
 
 ## Pages
@@ -119,13 +122,13 @@ blog_project/
 ## Technologies Used
 
 - Python 3
-- Django 5+/6
+- Django 6
 - Django Templates + Forms
 - Django Authentication System
 - SQLite
 - Bootstrap 5 (CDN)
 
-## Bonus Ideas (for future completion)
+## Bonus Ideas (for future implementation)
 
 - Categories, search, pagination
 - Profile page & profile picture
@@ -133,3 +136,4 @@ blog_project/
 - Draft/Published status
 - Comments / Likes
 - Responsive improvements (already mobile-friendly via Bootstrap)
+- Project demonstration video 
