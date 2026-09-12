@@ -26,6 +26,11 @@ A Simple Blog Application built with Django:
 - **Update**: Edit own posts only
 - **Delete**: Delete own posts only (with confirmation)
 
+### Profile page & profile picture
+- Add profile page
+- Add profile picture
+- Add about me
+
 Ownership: users cannot edit or delete posts belonging to others.
 
 ## Project Structure
@@ -131,7 +136,6 @@ blog_project/
 ## Bonus Ideas (for future implementation)
 
 - Categories, search, pagination
-- Profile page & profile picture
 - Post images
 - Draft/Published status
 - Comments / Likes

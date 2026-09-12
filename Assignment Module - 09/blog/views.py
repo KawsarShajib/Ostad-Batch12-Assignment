@@ -4,8 +4,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.contrib import messages
 from django.urls import reverse_lazy
+
 from .models import BlogPost
 from .forms import RegisterForm, BlogPostForm
+
+
+from .forms import ProfileForm
+from .models import Profile
 
 
 def home(request):
@@ -96,3 +101,27 @@ def delete_post(request, pk):
 def my_posts(request):
     posts = BlogPost.objects.filter(author=request.user)
     return render(request, 'blog/my_posts.html', {'posts': posts})
+
+
+
+
+
+@login_required
+def profile(request):
+    return render(request, 'blog/profile.html', {
+        'profile': request.user.profile
+    })
+
+
+@login_required
+def edit_profile(request):
+    profile = request.user.profile
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('profile')
+    else:
+        form = ProfileForm(instance=profile)
+    return render(request, 'blog/edit_profile.html', {'form': form})
