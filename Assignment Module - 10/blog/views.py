@@ -11,6 +11,8 @@ from .forms import RegisterForm, BlogPostForm
 
 from .forms import ProfileForm
 from .models import Profile
+# use in comment section
+from django.http import HttpResponseForbidden
 
 
 def home(request):
@@ -125,3 +127,63 @@ def edit_profile(request):
     else:
         form = ProfileForm(instance=profile)
     return render(request, 'blog/edit_profile.html', {'form': form})
+
+
+
+
+
+
+# Step 3: Create Views (Add, Edit, Delete)
+
+@login_required
+def add_comment(request, pk):
+    post = get_object_or_404(BlogPost, pk=pk)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.author = request.user
+            comment.save()
+            messages.success(request, 'Comment added!')
+    return redirect('post_detail', pk=pk)
+
+
+@login_required
+def edit_comment(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    
+    # Ownership check
+    if comment.author != request.user:
+        return HttpResponseForbidden("You cannot edit this comment.")
+    
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Comment updated!')
+            return redirect('post_detail', pk=comment.post.pk)
+    else:
+        form = CommentForm(instance=comment)
+    
+    return render(request, 'blog/edit_comment.html', {
+        'form': form,
+        'comment': comment
+    })
+
+
+@login_required
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    
+    # Ownership check
+    if comment.author != request.user:
+        return HttpResponseForbidden("You cannot delete this comment.")
+    
+    post_pk = comment.post.pk
+    if request.method == 'POST':
+        comment.delete()
+        messages.success(request, 'Comment deleted!')
+        return redirect('post_detail', pk=post_pk)
+    
+    return render(request, 'blog/delete_comment.html', {'comment': comment})
