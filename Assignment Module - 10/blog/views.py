@@ -24,6 +24,12 @@ def post_detail(request, pk):
     post = get_object_or_404(BlogPost, pk=pk)
     return render(request, 'blog/post_detail.html', {'post': post})
 
+    context = {
+        'post': post,
+        'comments': comments,
+        'comment_form': CommentForm(),
+    }
+    
     comments = Comment.objects.filter(post=post, parent=None)\
         .select_related('author')\
         .prefetch_related('replies')\

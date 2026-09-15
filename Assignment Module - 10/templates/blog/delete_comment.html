@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Comment - MyBlog{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-danger">
+            <div class="card-body p-4 text-center">
+                <i class="bi bi-exclamation-triangle text-danger display-4"></i>
+                <h2 class="h4 mt-3">Delete this comment?</h2>
+                <p class="text-muted mt-2">
+                    "{{ comment.content|truncatewords:25 }}"
+                </p>
+                <p class="small text-danger">This action cannot be undone.</p>
+
+                <form method="post" class="mt-4">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Yes, Delete
+                    </button>
+                    <a href="{% url 'post_detail' comment.post.pk %}" 
+                       class="btn btn-outline-secondary">
+                        Cancel
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
