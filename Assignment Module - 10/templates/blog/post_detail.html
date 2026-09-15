@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }} - MyBlog{% endblock %}
+
+{% block content %}
+<article class="card shadow-sm">
+    <div class="card-body p-4">
+        <h1 class="card-title h2 mb-3">{{ post.title }}</h1>
+        <div class="text-muted mb-4">
+            <span class="me-3"><i class="bi bi-person"></i> {{ post.author.username }}</span>
+            <span class="me-3"><i class="bi bi-calendar3"></i> {{ post.created_at|date:"F d, Y H:i" }}</span>
+            {% if post.updated_at != post.created_at %}
+            <span><i class="bi bi-pencil"></i> Updated {{ post.updated_at|date:"F d, Y H:i" }}</span>
+            {% endif %}
+        </div>
+        <div class="post-content mb-4">
+            {{ post.content|linebreaks }}
+        </div>
+
+        {% if user.is_authenticated and user == post.author %}
+        <div class="border-top pt-3">
+            <a href="{% url 'edit_post' post.pk %}" class="btn btn-outline-primary btn-sm me-2">
+                <i class="bi bi-pencil"></i> Edit
+            </a>
+            <a href="{% url 'delete_post' post.pk %}" class="btn btn-outline-danger btn-sm">
+                <i class="bi bi-trash"></i> Delete
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</article>
+
+<div class="mt-3">
+    <a href="{% url 'home' %}" class="btn btn-link text-decoration-none">
+        <i class="bi bi-arrow-left"></i> Back to Home
+    </a>
+</div>
+{% endblock %}
