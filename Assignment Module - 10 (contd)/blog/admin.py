@@ -1,24 +1,5 @@
-# from django.contrib import admin
-# from .models import BlogPost, Profile
-
-
-# @admin.register(BlogPost)
-# class BlogPostAdmin(admin.ModelAdmin):
-#     list_display = ('title', 'author', 'created_at', 'updated_at')
-#     list_filter = ('created_at', 'author')
-#     search_fields = ('title', 'content')
-#     date_hierarchy = 'created_at'
-
-
-
-# @admin.register(Profile)
-# class ProfileAdmin(admin.ModelAdmin):
-#     list_display = ('user', 'bio')
-
-
-
 from django.contrib import admin
-from .models import BlogPost, Profile, Comment, PostLike, CommentLike, PostRating
+from .models import BlogPost, Profile, Comment, PostLike, CommentLike, PostRating, Category
 
 
 @admin.register(BlogPost)
@@ -80,5 +61,10 @@ class PostRatingAdmin(admin.ModelAdmin):
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'bio')
-    search_fields = ('user__username', 'bio')
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug')
+    prepopulated_fields = {'slug': ('name',)}
     

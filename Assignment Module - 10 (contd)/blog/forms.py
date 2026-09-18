@@ -1,63 +1,7 @@
-# from django import forms
-# from django.contrib.auth.forms import UserCreationForm
-# from django.contrib.auth.models import User
-# from .models import BlogPost
-# from .models import Profile
-
-# class RegisterForm(UserCreationForm):
-#     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'form-control'}))
-
-#     class Meta:
-#         model = User
-#         fields = ['username', 'email', 'password1', 'password2']
-#         widgets = {
-#             'username': forms.TextInput(attrs={'class': 'form-control'}),
-#         }
-
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.fields['password1'].widget.attrs.update({'class': 'form-control'})
-#         self.fields['password2'].widget.attrs.update({'class': 'form-control'})
-
-
-# class BlogPostForm(forms.ModelForm):
-#     class Meta:
-#         model = BlogPost
-#         fields = ['title', 'content']
-#         widgets = {
-#             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter post title'}),
-#             'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 10, 'placeholder': 'Write your blog content here...'}),
-#         }
-
-
-
-
-
-# class ProfileForm(forms.ModelForm):
-#     class Meta:
-#         model = Profile
-#         fields = ['bio', 'profile_picture']
-#         widgets = {
-#             'bio': forms.Textarea(attrs={
-#                 'class': 'form-control',
-#                 'rows': 4,
-#                 'placeholder': 'Write something about yourself...'
-#             }),
-#             'profile_picture': forms.FileInput(attrs={
-#                 'class': 'form-control'
-#             }),
-#         }
-
-
-
-
-
-
-
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import BlogPost, Profile, Comment, PostRating
+from .models import BlogPost, Profile, Comment, PostRating, Category
 
 
 class RegisterForm(UserCreationForm):
@@ -76,25 +20,18 @@ class RegisterForm(UserCreationForm):
         self.fields['password2'].widget.attrs.update({'class': 'form-control'})
 
 
-# class BlogPostForm(forms.ModelForm):
-#     class Meta:
-#         model = BlogPost
-#         fields = ['title', 'content', 'image']
-#         widgets = {
-#             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter post title'}),
-#             'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 10, 'placeholder': 'Write your blog content here...'}),
-#         }
 
 
 class BlogPostForm(forms.ModelForm):
     class Meta:
         model = BlogPost
-        fields = ['title', 'content', 'image']   # ← add 'image'
+        fields = ['title', 'category', 'content', 'image']   # added 'image', 'category'
         widgets = {
             'title': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Enter post title'
             }),
+            'category': forms.Select(attrs={'class': 'form-select'}),    # added 'category'
             'content': forms.Textarea(attrs={
                 'class': 'form-control',
                 'rows': 10,
@@ -165,6 +102,6 @@ class SearchForm(forms.Form):
         required=False,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Search posts by title, content or author...'
+            'placeholder': 'Search posts by title, content, category or author...'
         })
     )

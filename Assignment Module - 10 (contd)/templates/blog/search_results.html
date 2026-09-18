@@ -20,6 +20,11 @@
             <small>{{ post.created_at|date:"M d, Y" }}</small>
         </div>
         <p class="mb-1 text-muted">by {{ post.author.username }}</p>
+
+        {% if post.category %}
+            <span class="badge bg-primary">{{ post.category.name }}</span>
+        {% endif %}
+
         <small>
             <i class="bi bi-heart"></i> {{ post.like_count|default:0 }}
             &nbsp; <i class="bi bi-chat"></i> {{ post.comment_count|default:0 }}

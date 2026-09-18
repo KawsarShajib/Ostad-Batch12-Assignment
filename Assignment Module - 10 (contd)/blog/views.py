@@ -1,152 +1,3 @@
-# from django.shortcuts import render, redirect, get_object_or_404
-# from django.contrib.auth import login, logout
-# from django.contrib.auth.decorators import login_required
-# from django.contrib.auth.views import LoginView
-# from django.contrib import messages
-# from django.urls import reverse_lazy
-
-# from .models import BlogPost
-# from .forms import RegisterForm, BlogPostForm
-
-
-# from .forms import ProfileForm
-# from .models import Profile
-
-
-# def home(request):
-#     posts = BlogPost.objects.all()
-#     return render(request, 'blog/home.html', {'posts': posts})
-
-
-# def post_detail(request, pk):
-#     post = get_object_or_404(BlogPost, pk=pk)
-#     return render(request, 'blog/post_detail.html', {'post': post})
-
-
-# def register(request):
-#     if request.user.is_authenticated:
-#         return redirect('home')
-#     if request.method == 'POST':
-#         form = RegisterForm(request.POST)
-#         if form.is_valid():
-#             user = form.save()
-#             login(request, user)
-#             messages.success(request, f'Account created successfully! Welcome, {user.username}.')
-#             return redirect('home')
-#     else:
-#         form = RegisterForm()
-#     return render(request, 'blog/register.html', {'form': form})
-
-
-# class CustomLoginView(LoginView):
-#     template_name = 'blog/login.html'
-#     redirect_authenticated_user = True
-
-#     def get_success_url(self):
-#         return reverse_lazy('home')
-
-
-# def logout_view(request):
-#     logout(request)
-#     messages.info(request, 'You have been logged out.')
-#     return redirect('home')
-
-
-# @login_required
-# def create_post(request):
-#     if request.method == 'POST':
-#         form = BlogPostForm(request.POST)
-#         if form.is_valid():
-#             post = form.save(commit=False)
-#             post.author = request.user
-#             post.save()
-#             messages.success(request, 'Blog post created successfully!')
-#             return redirect('post_detail', pk=post.pk)
-#     else:
-#         form = BlogPostForm()
-#     return render(request, 'blog/create_post.html', {'form': form})
-
-
-# @login_required
-# def edit_post(request, pk):
-#     post = get_object_or_404(BlogPost, pk=pk)
-#     if post.author != request.user:
-#         messages.error(request, 'You do not have permission to edit this post.')
-#         return redirect('post_detail', pk=pk)
-#     if request.method == 'POST':
-#         form = BlogPostForm(request.POST, instance=post)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, 'Blog post updated successfully!')
-#             return redirect('post_detail', pk=post.pk)
-#     else:
-#         form = BlogPostForm(instance=post)
-#     return render(request, 'blog/edit_post.html', {'form': form, 'post': post})
-
-
-# @login_required
-# def delete_post(request, pk):
-#     post = get_object_or_404(BlogPost, pk=pk)
-#     if post.author != request.user:
-#         messages.error(request, 'You do not have permission to delete this post.')
-#         return redirect('post_detail', pk=pk)
-#     if request.method == 'POST':
-#         post.delete()
-#         messages.success(request, 'Blog post deleted successfully!')
-#         return redirect('my_posts')
-#     return render(request, 'blog/delete_post.html', {'post': post})
-
-
-# @login_required
-# def my_posts(request):
-#     posts = BlogPost.objects.filter(author=request.user)
-#     return render(request, 'blog/my_posts.html', {'posts': posts})
-
-
-
-
-
-# @login_required
-# def profile(request):
-#     return render(request, 'blog/profile.html', {
-#         'profile': request.user.profile
-#     })
-
-
-# @login_required
-# def edit_profile(request):
-#     profile = request.user.profile
-#     if request.method == 'POST':
-#         form = ProfileForm(request.POST, request.FILES, instance=profile)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, 'Profile updated successfully!')
-#             return redirect('profile')
-#     else:
-#         form = ProfileForm(instance=profile)
-#     return render(request, 'blog/edit_profile.html', {'form': form})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
@@ -156,7 +7,7 @@ from django.urls import reverse_lazy
 from django.db.models import Count, Avg, Q, Prefetch
 from django.http import JsonResponse, HttpResponseForbidden
 
-from .models import BlogPost, Comment, PostLike, CommentLike, PostRating, Profile
+from .models import BlogPost, Comment, PostLike, CommentLike, PostRating, Profile, Category
 from .forms import (
     RegisterForm, BlogPostForm, CommentForm, ReplyForm,
     RatingForm, ProfileForm, SearchForm
@@ -196,14 +47,45 @@ def logout_view(request):
 
 # ==================== POSTS ====================
 
+# def home(request):
+#     posts = BlogPost.objects.select_related('author').annotate(
+#         like_count=Count('likes', distinct=True),
+#         comment_count=Count('comments', distinct=True),
+#         avg_rating=Avg('ratings__rating'),
+#         rating_count=Count('ratings', distinct=True),
+#     ).order_by('-created_at')
+#     return render(request, 'blog/home.html', {'posts': posts})
+
+
+
+
 def home(request):
-    posts = BlogPost.objects.select_related('author').annotate(
+    categories = Category.objects.prefetch_related(
+        Prefetch(
+            'posts',
+            queryset=BlogPost.objects.select_related('author', 'category').annotate(
+                like_count=Count('likes', distinct=True),
+                comment_count=Count('comments', distinct=True),
+                avg_rating=Avg('ratings__rating'),
+                rating_count=Count('ratings', distinct=True),
+            ).order_by('-created_at')
+        )
+    ).annotate(post_count=Count('posts')).filter(post_count__gt=0)
+
+    # Posts that have no category
+    uncategorized = BlogPost.objects.filter(category__isnull=True).select_related('author').annotate(
         like_count=Count('likes', distinct=True),
         comment_count=Count('comments', distinct=True),
         avg_rating=Avg('ratings__rating'),
         rating_count=Count('ratings', distinct=True),
     ).order_by('-created_at')
-    return render(request, 'blog/home.html', {'posts': posts})
+
+    return render(request, 'blog/home.html', {
+        'categories': categories,
+        'uncategorized': uncategorized,
+    })
+
+
 
 
 def post_detail(request, pk):
@@ -411,10 +293,11 @@ def search(request):
     if form.is_valid():
         query = form.cleaned_data.get('q', '').strip()
         if query:
-            posts = BlogPost.objects.select_related('author').filter(
+            posts = BlogPost.objects.select_related('author', 'category').filter(
                 Q(title__icontains=query) |
                 Q(content__icontains=query) |
-                Q(author__username__icontains=query)
+                Q(author__username__icontains=query)|
+                Q(category__name__icontains=query)
             ).annotate(
                 like_count=Count('likes', distinct=True),
                 comment_count=Count('comments', distinct=True),
