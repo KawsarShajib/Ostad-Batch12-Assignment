@@ -14,6 +14,13 @@ from .forms import (
 )
 
 
+
+
+
+
+
+
+
 # ==================== AUTH ====================
 
 def register(request):
@@ -45,9 +52,25 @@ def logout_view(request):
     return redirect('home')
 
 
+
+
+
+
+
 # ==================== POSTS ====================
 
+# Bad
+# ----------------------------------------------------------------
+# posts = BlogPost.objects.all()
+# for post in posts:
+#     print(post.author.username)   # Extra query for every post
 
+# Good and Fast
+# ---------------------------------------------------------------
+# posts = BlogPost.objects.select_related('author', 'category')
+
+# Use select_related() when the relationship is many-to-one or one-to-one 
+# (e.g. BlogPost → Author, BlogPost → Category).
 def home(request):
     categories = Category.objects.prefetch_related(
         Prefetch(
@@ -61,6 +84,8 @@ def home(request):
         )
     ).annotate(post_count=Count('posts')).filter(post_count__gt=0)
 
+
+
     # Posts that have no category
     uncategorized = BlogPost.objects.filter(category__isnull=True).select_related('author').annotate(
         like_count=Count('likes', distinct=True),
@@ -68,6 +93,7 @@ def home(request):
         avg_rating=Avg('ratings__rating'),
         rating_count=Count('ratings', distinct=True),
     ).order_by('-created_at')
+
 
     return render(request, 'blog/home.html', {
         'categories': categories,
@@ -89,6 +115,25 @@ def post_detail(request, pk):
     )
 
     # Prefetch top-level comments + their replies + likes
+    # -----------------------------------------------------------------------
+    # Bad
+    # ------------------------------------------------------------------
+    # posts = BlogPost.objects.all()
+    # for post in posts:
+    #     print(post.comments.count())   # Extra query per post
+
+    # Good
+    # ------------------------------------------------------------------
+    # posts = BlogPost.objects.prefetch_related('comments', 'likes', 'ratings')
+
+    # For nested data (comments + replies):
+    # --------------------------------------------------
+    # comments = Comment.objects.filter(post=post, parent=None).prefetch_related(
+    #     Prefetch('replies', queryset=Comment.objects.select_related('author'))
+    # )
+
+    # Use select_related()      for ==> ForeignKey / OneToOne and 
+    # Use prefetch_related()    for ==> Reverse ForeignKey / ManyToMany
     comments = Comment.objects.filter(post=post, parent=None).select_related(
         'author'
     ).prefetch_related(
@@ -117,6 +162,7 @@ def post_detail(request, pk):
     return render(request, 'blog/post_detail.html', context)
 
 
+
 @login_required
 def create_post(request):
     if request.method == 'POST':
@@ -130,7 +176,6 @@ def create_post(request):
     else:
         form = BlogPostForm()
     return render(request, 'blog/create_post.html', {'form': form})
-
 
 
 
@@ -151,6 +196,7 @@ def edit_post(request, pk):
     return render(request, 'blog/edit_post.html', {'form': form, 'post': post})
 
 
+
 @login_required
 def delete_post(request, pk):
     post = get_object_or_404(BlogPost, pk=pk)
@@ -164,6 +210,7 @@ def delete_post(request, pk):
     return render(request, 'blog/delete_post.html', {'post': post})
 
 
+
 @login_required
 def my_posts(request):
     posts = BlogPost.objects.filter(author=request.user).annotate(
@@ -172,6 +219,8 @@ def my_posts(request):
         avg_rating=Avg('ratings__rating'),
     )
     return render(request, 'blog/my_posts.html', {'posts': posts})
+
+
 
 
 # ==================== COMMENTS ====================
@@ -234,6 +283,10 @@ def delete_comment(request, comment_id):
     return render(request, 'blog/delete_comment.html', {'comment': comment})
 
 
+
+
+
+
 # ==================== LIKES ====================
 
 @login_required
@@ -257,6 +310,10 @@ def toggle_comment_like(request, comment_id):
     return redirect('post_detail', pk=comment.post.pk)
 
 
+
+
+
+
 # ==================== RATINGS ====================
 
 @login_required
@@ -272,6 +329,11 @@ def rate_post(request, pk):
             rating.save()
             messages.success(request, 'Rating saved!')
     return redirect('post_detail', pk=pk)
+
+
+
+
+
 
 
 # ==================== SEARCH ====================
@@ -300,6 +362,11 @@ def search(request):
     })
 
 
+
+
+
+
+
 # ==================== POPULAR POSTS ====================
 
 def popular_posts(request):
@@ -311,6 +378,11 @@ def popular_posts(request):
         engagement=Count('likes', distinct=True) + Count('comments', distinct=True),
     ).order_by('-engagement', '-avg_rating', '-like_count')[:20]
     return render(request, 'blog/popular_posts.html', {'posts': posts})
+
+
+
+
+
 
 
 # ==================== PROFILE ====================

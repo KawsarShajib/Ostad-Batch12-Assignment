@@ -13,9 +13,9 @@
 
 {% for category in categories %}
     {% if category.posts.all %}
-        <h3 class="mt-5 mb-3 border-bottom pb-2 text-danger fw-medium text-decoration-none">
+        <h5 class="mt-5 mb-3 border-bottom pb-2 text-danger fw-medium text-decoration-none">
             Category : <i class="bi bi-folder text-success"></i> {{ category.name }}
-        </h3>
+        </h5>
         
         <div class="row g-4 mb-4">
             {% for post in category.posts.all %}

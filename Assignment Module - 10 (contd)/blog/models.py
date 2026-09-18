@@ -76,6 +76,7 @@ class BlogPost(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(BlogPost, on_delete=models.CASCADE, related_name='comments')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    # for replies
     parent = models.ForeignKey(
         'self',
         on_delete=models.CASCADE,
