@@ -10,7 +10,7 @@
 {% if posts %}
 <div class="table-responsive">
     <table class="table table-hover align-middle bg-white shadow-sm">
-        <thead class="table-light">
+        <thead class="table-success">
             <tr>
                 <th>Title</th>
                 <th>Category</th>
@@ -30,7 +30,7 @@
                     </a>
                 </td>
                 <td>
-                    <a href="{% url 'post_detail' post.pk %}" class="text-decoration-none">
+                    <a href="{% url 'post_detail' post.pk %}" class="text-danger fw-medium text-decoration-none">
                         {% if post.category %}
                             {{ post.category.name }}
                         {% else %}

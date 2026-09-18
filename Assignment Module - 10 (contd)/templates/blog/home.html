@@ -13,13 +13,13 @@
 
 {% for category in categories %}
     {% if category.posts.all %}
-        <h3 class="mt-5 mb-3 border-bottom pb-2">
-            <i class="bi bi-folder"></i> {{ category.name }}
+        <h3 class="mt-5 mb-3 border-bottom pb-2 text-danger fw-medium text-decoration-none">
+            Category : <i class="bi bi-folder text-success"></i> {{ category.name }}
         </h3>
         
         <div class="row g-4 mb-4">
             {% for post in category.posts.all %}
-            <div class="col-md-6 col-lg-4">
+            <div class="col-md-4 col-lg-6">
                 <div class="card post-card h-100 shadow-sm">
                     {% if post.image %}
                         <img src="{{ post.image.url }}" class="card-img-top" 
