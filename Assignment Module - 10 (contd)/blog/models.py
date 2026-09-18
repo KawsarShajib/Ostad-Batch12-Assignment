@@ -47,6 +47,8 @@ class BlogPost(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
+#     title = models.CharField(max_length=200, db_index=True)
+#     created_at = models.DateTimeField(db_index=True)
 
     # Relating the Category field to BlogPost model
     category = models.ForeignKey(
@@ -65,13 +67,27 @@ class BlogPost(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+        # indexes = [
+        #     models.Index(fields=['author', 'created_at']),
+        #     models.Index(fields=['category', '-created_at']),
+        # ]
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('post_detail', kwargs={'pk': self.pk})
-
+    
+# Use Database Indexes
+# class BlogPost(models.Model):
+#     title = models.CharField(max_length=200, db_index=True)
+#     created_at = models.DateTimeField(db_index=True)
+    
+#     class Meta:
+#         indexes = [
+#             models.Index(fields=['author', 'created_at']),
+#             models.Index(fields=['category', '-created_at']),
+#         ]
 
 class Comment(models.Model):
     post = models.ForeignKey(BlogPost, on_delete=models.CASCADE, related_name='comments')

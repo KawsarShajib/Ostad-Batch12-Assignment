@@ -49,6 +49,20 @@ Ownership: users cannot edit or delete posts belonging to others.
 - Add category filter functionality in home page (e.g. show all posts in a specific category)
 - Add category filter functionality in "My Posts" page (e.g. show all posts in a specific category)
 
+
+###  Django ORM aggregation 
+| Function | Purpose | Example | 
+|----------|---------|---------|
+| Count | Number of items | Total likes, total comments | 
+| Avg | Average value | Average star rating | 
+| Sum | Total of values | Sum of all ratings | 
+| Min | Smallest value | Lowest rating | 
+| Max | Largest value | Highest rating |
+|----------|---------|---------|
+
+
+
+
 ## Project Structure
 
 ```
