@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Edit Comment - MyBlog{% endblock %}
+{% block title %}Edit Comment - The Open Lens{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
@@ -38,3 +38,27 @@
     </div>
 </div>
 {% endblock %}
+
+
+
+{% comment %} {% extends 'base.html' %}
+{% block title %}Edit Comment - The Open Lens{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h2 class="h4 mb-4">Edit Comment</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.content }}
+                    <div class="mt-3 d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <a href="{% url 'post_detail' comment.post.pk %}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} {% endcomment %}

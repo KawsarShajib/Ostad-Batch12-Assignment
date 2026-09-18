@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Popular Posts - The Open Lens{% endblock %}
+{% block content %}
+<h1 class="h3 mb-4">Popular Posts</h1>
+<p class="text-muted mb-4">Ranked by engagement (likes + comments) and average rating.</p>
+{% if posts %}
+<ol class="list-group list-group-numbered">
+    {% for post in posts %}
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+            <div class="fw-bold">
+                <a href="{% url 'post_detail' post.pk %}" class="text-decoration-none">{{ post.title }}</a>
+            </div>
+            by {{ post.author.username }} · {{ post.created_at|date:"M d, Y" }}
+        </div>
+        <div class="text-end">
+            <span class="badge bg-primary rounded-pill">
+                <i class="bi bi-heart"></i> {{ post.like_count }}
+            </span>
+            <span class="badge bg-secondary rounded-pill">
+                <i class="bi bi-chat"></i> {{ post.comment_count }}
+            </span>
+            {% if post.avg_rating %}
+            <span class="badge bg-warning text-dark rounded-pill">
+                <i class="bi bi-star-fill"></i> {{ post.avg_rating|floatformat:1 }}
+            </span>
+            {% endif %}
+        </div>
+    </li>
+    {% endfor %}
+</ol>
+{% else %}
+<p class="text-muted">No posts yet.</p>
+{% endif %}
+{% endblock %}
