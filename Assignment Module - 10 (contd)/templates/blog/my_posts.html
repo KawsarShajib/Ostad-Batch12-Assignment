@@ -13,6 +13,7 @@
         <thead class="table-light">
             <tr>
                 <th>Title</th>
+                <th>Category</th>
                 <th>Likes</th>
                 <th>Comments</th>
                 <th>Avg Rating</th>
@@ -26,6 +27,15 @@
                 <td>
                     <a href="{% url 'post_detail' post.pk %}" class="text-decoration-none fw-medium">
                         {{ post.title }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{% url 'post_detail' post.pk %}" class="text-decoration-none">
+                        {% if post.category %}
+                            {{ post.category.name }}
+                        {% else %}
+                            Uncategorized
+                        {% endif %}
                     </a>
                 </td>
                 <td>{{ post.like_count|default:0 }}</td>

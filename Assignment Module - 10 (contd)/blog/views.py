@@ -47,17 +47,6 @@ def logout_view(request):
 
 # ==================== POSTS ====================
 
-# def home(request):
-#     posts = BlogPost.objects.select_related('author').annotate(
-#         like_count=Count('likes', distinct=True),
-#         comment_count=Count('comments', distinct=True),
-#         avg_rating=Avg('ratings__rating'),
-#         rating_count=Count('ratings', distinct=True),
-#     ).order_by('-created_at')
-#     return render(request, 'blog/home.html', {'posts': posts})
-
-
-
 
 def home(request):
     categories = Category.objects.prefetch_related(
@@ -118,6 +107,7 @@ def post_detail(request, pk):
 
     context = {
         'post': post,
+        # 'category': Category,
         'comments': comments,
         'comment_form': comment_form,
         'rating_form': rating_form,

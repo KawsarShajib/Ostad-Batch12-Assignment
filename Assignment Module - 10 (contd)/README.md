@@ -33,6 +33,22 @@ A Simple Blog Application built with Django:
 
 Ownership: users cannot edit or delete posts belonging to others.
 
+### Post Images 
+- Add image field to blog posts
+- Display images in post detail and home page (in the cards as thumbnail)
+- Add image upload functionality in create/edit post forms
+
+### Search Functionality
+- Add search bar in navbar
+- Search posts by title or content or category
+
+
+### Add categories to posts
+- Add category field to blog posts
+- Display category in post detail and home page (in the cards)
+- Add category filter functionality in home page (e.g. show all posts in a specific category)
+- Add category filter functionality in "My Posts" page (e.g. show all posts in a specific category)
+
 ## Project Structure
 
 ```
@@ -100,6 +116,7 @@ blog_project/
 | admin    | admin123  | Superuser |
 | kawsar    | Sonali@123   | Sample user |
 | rahim    | pass123   | Sample user |
+| mirab    | User@2026   | Sample user |
 
 
 ## Pages
