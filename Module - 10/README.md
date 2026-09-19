@@ -74,29 +74,50 @@ Ownership: users cannot edit or delete posts belonging to others.
 
 ```
 blog_project/
-├── blog/                 # Main app
-│   ├── models.py         # BlogPost model
-│   ├── forms.py          # RegisterForm, BlogPostForm
-│   ├── views.py          # All views
+├── blog/                # Blog App
+│   ├── __init__.py     
+│   ├── admin.py          # Admin registration  
+│   ├── forms.py          # RegisterForm, BlogPostForm etc.  
+│   ├── models.py         # Profile, Category, BlogPost model
 │   ├── urls.py           # App URLs
-│   ├── admin.py          # Admin registration
+│   ├── views.py          # All views
 │   └── migrations/
+│
+├── blog_project/         # Main app
+│   ├── __init__.py 
+│   ├──asgi.py
+│   ├──settings.py
+│   ├──urls.py
+│   └──wsgi.py
+│
+├── media/
+├── static/
+│ 
 ├── templates/
 │   ├── base.html         # Base template with navbar
 │   └── blog/
-│       ├── home.html
-│       ├── post_detail.html
-│       ├── register.html
-│       ├── login.html
 │       ├── create_post.html
-│       ├── edit_post.html
+│       ├── delete_comment.html
 │       ├── delete_post.html
-│       └── my_posts.html
+│       ├── edit_comment.html
+│       ├── edit_post.html
+│       ├── edit_profile.html
+│       ├── home.html
+│       ├── login.html
+│       ├── post_detail.html
+│       ├── my_posts.html
+│       ├── popular_posts.html
+│       ├── post_detail.html
+│       ├── profile.html
+│       ├── register.html
+│       └── search_results.html
+│
+├── .gitignore
 ├── db.sqlite3
 ├── manage.py
-├── requirements.txt
+├── project_structure.png
 └── README.md
-└── project_structure.png
+└── requirements.txt
 ```
 
 ## Setup & Run
@@ -140,6 +161,7 @@ blog_project/
 | mirab    | User@2026   | Sample user |
 
 
+
 ## Pages
 
 | URL                  | Description                          | Auth Required |
@@ -159,8 +181,9 @@ blog_project/
 ## Authorization Example
 
 - **Kawsar** creates "Lionel Messi: The Ultimate Success Story of Talent, Struggle, Failure & Greatness"
-  - Kawsar: can view, edit, delete
-  - Any other user (e.g. Rahim): can view only
+  - Kawsar: can view, edit, delete his post
+  - Any other user can view only
+  - Any other logged in user can view, comment, like only
 
 ## Technologies Used
 
