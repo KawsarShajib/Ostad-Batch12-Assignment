@@ -74,9 +74,24 @@ python manage.py createsuperuser
 
 # 5. Run the dev server
 python manage.py runserver
-```
 
-Then visit:
+```
+## Login Credentials Used
+
+| username | password |
+|----------|----------|
+| admin    | Admin@2026    |
+| kawsar    | Sonali@2026    |
+
+## Dependencies required to run this project
+
+asgiref==3.12.1
+Django==6.1.1
+pillow==12.3.0
+sqlparse==0.6.0
+tzdata==2026.4
+
+## Then visit:
 - `http://127.0.0.1:8000/` — home page
 - `http://127.0.0.1:8000/register/` — create an account
 - `http://127.0.0.1:8000/reports/` — browse/search all reports
