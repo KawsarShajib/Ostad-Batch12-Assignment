@@ -50,6 +50,22 @@ This is a full-stack personal portfolio website that showcases my profile, skill
 | Database | SQLite (default) |
 | Frontend | HTML5, CSS3 |
 
+
+## Login Credentials Used
+
+| username | password |
+|----------|----------|
+| kawsarahmed    | Super@user123    |
+
+
+## Technologies Used
+
+| Category | Technology |
+|----------|------------|
+| Backend | Python , Django |
+| Database | SQLite (default) |
+| Frontend | HTML5, CSS3 |
+
 ---
 
 ## Screenshots
