@@ -7,16 +7,13 @@ from django.urls import reverse_lazy
 from django.db.models import Count, Avg, Q, Prefetch
 from django.http import JsonResponse, HttpResponseForbidden
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 from .models import BlogPost, Comment, PostLike, CommentLike, PostRating, Profile, Category
 from .forms import (
     RegisterForm, BlogPostForm, CommentForm, ReplyForm,
     RatingForm, ProfileForm, SearchForm
 )
-
-
-
-
-
 
 
 
@@ -59,6 +56,41 @@ def logout_view(request):
 
 # ==================== POSTS ====================
 
+
+def home(request):
+    posts_qs = BlogPost.objects.select_related('author', 'category').annotate(
+        like_count=Count('likes', distinct=True),
+        comment_count=Count('comments', distinct=True),
+        avg_rating=Avg('ratings__rating'),
+        rating_count=Count('ratings', distinct=True),
+    ).order_by('-created_at')
+
+    # Category filter
+    category_slug = request.GET.get('category')
+    if category_slug:
+        posts_qs = posts_qs.filter(category__slug=category_slug)
+
+    # Pagination
+    paginator = Paginator(posts_qs, 9)          # 9 posts per page (3 cards per row)
+    page = request.GET.get('page')
+
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
+    # For category filter buttons
+    categories = Category.objects.annotate(post_count=Count('posts')).filter(post_count__gt=0)
+
+    return render(request, 'blog/home.html', {
+        'posts': posts,
+        'categories': categories,
+        'selected_category': category_slug,
+    })
+
+
 # Bad
 # ----------------------------------------------------------------
 # posts = BlogPost.objects.all()
@@ -83,55 +115,91 @@ def logout_view(request):
 
 # Use select_related() when the relationship is many-to-one or one-to-one 
 # (e.g. BlogPost → Author, BlogPost → Category).
-def home(request):
-    categories = Category.objects.prefetch_related(
-        Prefetch(
-            'posts',
-            queryset=BlogPost.objects.select_related('author', 'category').annotate(
-                like_count=Count('likes', distinct=True),
-                comment_count=Count('comments', distinct=True),
-                avg_rating=Avg('ratings__rating'),
-                rating_count=Count('ratings', distinct=True),
-            ).order_by('-created_at')
-        )
-    ).annotate(post_count=Count('posts')).filter(post_count__gt=0)
+# def home(request):
+#     categories = Category.objects.prefetch_related(
+#         Prefetch(
+#             'posts',
+#             queryset=BlogPost.objects.select_related('author', 'category').annotate(
+#                 like_count=Count('likes', distinct=True),
+#                 comment_count=Count('comments', distinct=True),
+#                 avg_rating=Avg('ratings__rating'),
+#                 rating_count=Count('ratings', distinct=True),
+#             ).order_by('-created_at')
+#         )
+#     ).annotate(post_count=Count('posts')).filter(post_count__gt=0)
 
 
 
-    # Use annotate() instead of Python loops
-    # -----------------------------------------------------------
-    # Python# Bad (slow)
-    # -----------------------------------------------------------
-    # for post in posts:
-    #     post.like_count = post.likes.count()       # Query per post
-    #     post.avg_rating = post.ratings.aggregate(Avg('rating'))
+#     # Use annotate() instead of Python loops
+#     # -----------------------------------------------------------
+#     # Python# Bad (slow)
+#     # -----------------------------------------------------------
+#     # for post in posts:
+#     #     post.like_count = post.likes.count()       # Query per post
+#     #     post.avg_rating = post.ratings.aggregate(Avg('rating'))
 
-    # Good (fast)
-    # -----------------------------------------------------------
-    # posts = BlogPost.objects.annotate(
-    #     like_count=Count('likes', distinct=True),
-    #     comment_count=Count('comments', distinct=True),
-    #     avg_rating=Avg('ratings__rating')
-    # )
-
-
+#     # Good (fast)
+#     # -----------------------------------------------------------
+#     # posts = BlogPost.objects.annotate(
+#     #     like_count=Count('likes', distinct=True),
+#     #     comment_count=Count('comments', distinct=True),
+#     #     avg_rating=Avg('ratings__rating')
+#     # )
 
 
+#     # Posts that have no category
+#     uncategorized = BlogPost.objects.filter(category__isnull=True).select_related('author').annotate(
+#         like_count=Count('likes', distinct=True),
+#         comment_count=Count('comments', distinct=True),
+#         avg_rating=Avg('ratings__rating'),
+#         rating_count=Count('ratings', distinct=True),
+#     ).order_by('-created_at')
 
 
-    # Posts that have no category
-    uncategorized = BlogPost.objects.filter(category__isnull=True).select_related('author').annotate(
-        like_count=Count('likes', distinct=True),
-        comment_count=Count('comments', distinct=True),
-        avg_rating=Avg('ratings__rating'),
-        rating_count=Count('ratings', distinct=True),
-    ).order_by('-created_at')
+#     return render(request, 'blog/home.html', {
+#         'categories': categories,
+#         'uncategorized': uncategorized,
+#     })
 
 
-    return render(request, 'blog/home.html', {
-        'categories': categories,
-        'uncategorized': uncategorized,
-    })
+
+# def home(request):
+#     posts_qs = BlogPost.objects.select_related('author', 'category').annotate(
+#         like_count=Count('likes', distinct=True),
+#         comment_count=Count('comments', distinct=True),
+#         avg_rating=Avg('ratings__rating'),
+#         rating_count=Count('ratings', distinct=True),
+#     ).order_by('-created_at')
+
+#     paginator = Paginator(posts_qs, 9)          # 9 posts per page
+#     page = request.GET.get('page')
+
+#     try:
+#         posts = paginator.page(page)
+#     except PageNotAnInteger:
+#         posts = paginator.page(1)
+#     except EmptyPage:
+#         posts = paginator.page(paginator.num_pages)
+
+#     return render(request, 'blog/home.html', {
+#         'posts': posts,
+#     })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -408,18 +476,31 @@ def search(request):
 # ==================== POPULAR POSTS ====================
 
 def popular_posts(request):
-    posts = BlogPost.objects.select_related('author').annotate(
+    # Keep the queryset in a different variable
+    posts_qs = BlogPost.objects.select_related('author', 'category').annotate(
         like_count=Count('likes', distinct=True),
         comment_count=Count('comments', distinct=True),
         avg_rating=Avg('ratings__rating'),
         rating_count=Count('ratings', distinct=True),
         engagement=Count('likes', distinct=True) + Count('comments', distinct=True),
-    ).order_by('-engagement', '-avg_rating', '-like_count')[:20]
+    ).order_by('-engagement', '-avg_rating', '-like_count')
+
+    paginator = Paginator(posts_qs, 10)          # 10 posts per page
+    page = request.GET.get('page')
+
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
 
     return render(request, 'blog/popular_posts.html', {
         'posts': posts,
-        'posts_count': posts.count(),
+        'posts_count': posts_qs.count(),
     })
+
+
 
 
 
@@ -458,6 +539,30 @@ def edit_profile(request):
     else:
         form = ProfileForm(instance=profile_obj)
     return render(request, 'blog/edit_profile.html', {'form': form})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

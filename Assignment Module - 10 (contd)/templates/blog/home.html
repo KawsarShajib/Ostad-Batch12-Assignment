@@ -11,6 +11,143 @@
     {% endif %}
 </div>
 
+<!-- Category Filter -->
+<div class="mb-4">
+    <a href="{% url 'home' %}" 
+       class="btn btn-sm {% if not selected_category %}btn-primary{% else %}btn-outline-primary{% endif %} me-1 mb-2">
+        All
+    </a>
+    {% for category in categories %}
+        <a href="?category={{ category.slug }}" 
+           class="btn btn-sm {% if selected_category == category.slug %}btn-primary{% else %}btn-outline-primary{% endif %} me-1 mb-2">
+            {{ category.name }}
+            <span class="badge bg-light text-dark">{{ category.post_count }}</span>
+        </a>
+    {% endfor %}
+</div>
+
+{% if posts %}
+    <div class="row g-4">
+        {% for post in posts %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card post-card h-100 shadow-sm">
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" class="card-img-top" 
+                         style="height: 180px; object-fit: cover;" alt="{{ post.title }}">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    
+                    {% if post.category %}
+                        <span class="badge bg-primary align-self-start mb-2">{{ post.category.name }}</span>
+                    {% endif %}
+                    
+                    <h5 class="card-title">
+                        <a href="{% url 'post_detail' post.pk %}" class="text-decoration-none text-dark">
+                            {{ post.title }}
+                        </a>
+                    </h5>
+                    <p class="card-text text-muted small mb-2">
+                        <i class="bi bi-person"></i> {{ post.author.username }}
+                        &nbsp;|&nbsp;
+                        <i class="bi bi-calendar3"></i> {{ post.created_at|date:"M d, Y" }}
+                    </p>
+                    <p class="card-text flex-grow-1">
+                        {{ post.content|truncatewords:25 }}
+                    </p>
+                    <div class="d-flex flex-wrap gap-2 mb-2">
+                        <span class="badge bg-light text-dark border">
+                            <i class="bi bi-heart"></i> {{ post.like_count|default:0 }}
+                        </span>
+                        <span class="badge bg-light text-dark border">
+                            <i class="bi bi-chat"></i> {{ post.comment_count|default:0 }}
+                        </span>
+                        {% if post.avg_rating %}
+                        <span class="badge bg-warning text-dark">
+                            <i class="bi bi-star-fill"></i> {{ post.avg_rating|floatformat:1 }}
+                        </span>
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'post_detail' post.pk %}" class="btn btn-outline-primary btn-sm mt-auto align-self-start">
+                        Read More <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if posts.has_other_pages %}
+    <nav aria-label="Page navigation" class="mt-5">
+        <ul class="pagination justify-content-center">
+            {% if posts.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1{% if selected_category %}&category={{ selected_category }}{% endif %}">&laquo; First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ posts.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}">Previous</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link">&laquo; First</span></li>
+                <li class="page-item disabled"><span class="page-link">Previous</span></li>
+            {% endif %}
+
+            {% for num in posts.paginator.page_range %}
+                {% if posts.number == num %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                {% elif num > posts.number|add:'-3' and num < posts.number|add:'3' %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}{% if selected_category %}&category={{ selected_category }}{% endif %}">{{ num }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if posts.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ posts.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ posts.paginator.num_pages }}{% if selected_category %}&category={{ selected_category }}{% endif %}">Last &raquo;</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link">Next</span></li>
+                <li class="page-item disabled"><span class="page-link">Last &raquo;</span></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <p class="text-center text-muted mt-3 mb-0">
+        Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+    </p>
+    {% endif %}
+
+{% else %}
+    <div class="text-center py-5">
+        <h4 class="text-muted">No posts found</h4>
+    </div>
+{% endif %}
+{% endblock %}
+
+
+
+
+
+
+{% comment %} 
+ 
+{% extends 'base.html' %}
+{% block title %}Home - MyBlog{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">Latest Blog Posts</h1>
+    {% if user.is_authenticated %}
+        <a href="{% url 'create_post' %}" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> New Post
+        </a>
+    {% endif %}
+</div>
+
 {% for category in categories %}
     {% if category.posts.all %}
         <h5 class="mt-5 mb-3 border-bottom pb-2 text-danger fw-medium text-decoration-none">
@@ -77,3 +214,148 @@
     </div>
 {% endif %}
 {% endblock %}
+
+{% endcomment %}
+
+
+
+
+
+
+
+
+
+{% comment %} 
+
+PAGINATION WORKS HERE, BUT CATEGORY VIEW IS NOT WORKING
+======================================================================================== 
+{% extends 'base.html' %}
+{% block title %}Home - MyBlog{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">Latest Blog Posts</h1>
+    {% if user.is_authenticated %}
+        <a href="{% url 'create_post' %}" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> New Post
+        </a>
+    {% endif %}
+</div>
+
+{% if posts %}
+    <div class="row g-4">
+        {% for post in posts %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card post-card h-100 shadow-sm">
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" class="card-img-top" 
+                         style="height: 180px; object-fit: cover;" alt="{{ post.title }}">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    {% if post.category %}
+                        <span class="badge bg-primary align-self-start mb-2">{{ post.category.name }}</span>
+                    {% endif %}
+                    
+                    <h5 class="card-title">
+                        <a href="{% url 'post_detail' post.pk %}" class="text-decoration-none text-dark">
+                            {{ post.title }}
+                        </a>
+                    </h5>
+                    <p class="card-text text-muted small mb-2">
+                        <i class="bi bi-person"></i> {{ post.author.username }}
+                        &nbsp;|&nbsp;
+                        <i class="bi bi-calendar3"></i> {{ post.created_at|date:"M d, Y" }}
+                    </p>
+                    <p class="card-text flex-grow-1">
+                        {{ post.content|truncatewords:25 }}
+                    </p>
+                    <div class="d-flex flex-wrap gap-2 mb-2">
+                        <span class="badge bg-light text-dark border">
+                            <i class="bi bi-heart"></i> {{ post.like_count|default:0 }}
+                        </span>
+                        <span class="badge bg-light text-dark border">
+                            <i class="bi bi-chat"></i> {{ post.comment_count|default:0 }}
+                        </span>
+                        {% if post.avg_rating %}
+                        <span class="badge bg-warning text-dark">
+                            <i class="bi bi-star-fill"></i> {{ post.avg_rating|floatformat:1 }}
+                        </span>
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'post_detail' post.pk %}" class="btn btn-outline-primary btn-sm mt-auto align-self-start">
+                        Read More <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- ==================== PAGINATION ==================== -->
+    {% if posts.has_other_pages %}
+    <nav aria-label="Page navigation" class="mt-5">
+        <ul class="pagination justify-content-center">
+
+            {% if posts.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo; First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ posts.previous_page_number }}">Previous</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link">&laquo; First</span></li>
+                <li class="page-item disabled"><span class="page-link">Previous</span></li>
+            {% endif %}
+
+            {% for num in posts.paginator.page_range %}
+                {% if posts.number == num %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                {% elif num > posts.number|add:'-3' and num < posts.number|add:'3' %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if posts.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ posts.next_page_number }}">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ posts.paginator.num_pages }}">Last &raquo;</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link">Next</span></li>
+                <li class="page-item disabled"><span class="page-link">Last &raquo;</span></li>
+            {% endif %}
+
+        </ul>
+    </nav>
+
+    <p class="text-center text-muted mt-3 mb-0">
+        Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+    </p>
+    {% endif %}
+
+{% else %}
+    <div class="text-center py-5">
+        <h4 class="text-muted">No posts yet</h4>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% endcomment %}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -49,6 +49,12 @@ Ownership: users cannot edit or delete posts belonging to others.
 - Add category filter functionality in home page (e.g. show all posts in a specific category)
 - Add category filter functionality in "My Posts" page (e.g. show all posts in a specific category)
 
+### Filtering posts by category
+- Add category filter functionality in home page (e.g. show all posts in a specific category)
+- Add category filter functionality in "My Posts" page  (upcoming feature)
+- Add category filter functionality in search results page (upcoming feature)
+- Add category filter functionality in "Popular Posts" page (upcoming feature)
+
 
 ###  Django ORM aggregation 
 | Function | Purpose | Example | 
@@ -58,9 +64,10 @@ Ownership: users cannot edit or delete posts belonging to others.
 | Sum | Total of values | Sum of all ratings | 
 | Min | Smallest value | Lowest rating | 
 | Max | Largest value | Highest rating |
-|----------|---------|---------|
 
-
+###  Pagination
+- Add pagination to home page and "Popular Posts" page
+- Add pagination to search results page
 
 
 ## Project Structure
@@ -166,9 +173,8 @@ blog_project/
 
 ## Bonus Ideas (for future implementation)
 
-- Categories, search, pagination
-- Post images
+- Post filtering by category 
+- Pagination
 - Draft/Published status
-- Comments / Likes
 - Responsive improvements (already mobile-friendly via Bootstrap)
 - Project demonstration video 

@@ -35,6 +35,58 @@
     </li>
     {% endfor %}
 </ol>
+
+
+<!-- Pagination Controls -->
+    {% if posts.has_other_pages %}
+    <nav aria-label="Page navigation" class="text-center text-muted mt-3">
+        <ul class="pagination justify-content-center">
+
+            {% if posts.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo; First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ posts.previous_page_number }}">Previous</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link">&laquo; First</span></li>
+                <li class="page-item disabled"><span class="page-link">Previous</span></li>
+            {% endif %}
+
+            {% for num in posts.paginator.page_range %}
+                {% if posts.number == num %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                {% elif num > posts.number|add:'-3' and num < posts.number|add:'3' %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if posts.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ posts.next_page_number }}">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ posts.paginator.num_pages }}">Last &raquo;</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link">Next</span></li>
+                <li class="page-item disabled"><span class="page-link">Last &raquo;</span></li>
+            {% endif %}
+
+        </ul>
+    </nav>
+
+    <div class="mt-4">
+        <p class="text-center text-muted mb-0">
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+        </p>
+    </div>
+
+    {% endif %}
+    
 {% else %}
 <p class="text-muted">No posts yet.</p>
 {% endif %}
