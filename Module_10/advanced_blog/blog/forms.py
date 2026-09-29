@@ -31,15 +31,22 @@ class BlogPostForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Enter post title'
             }),
+
             'category': forms.Select(attrs={'class': 'form-select'}),    # added 'category'
-            'content': forms.Textarea(attrs={
-                'class': 'form-control',
-                'rows': 10,
-                'placeholder': 'Write your blog content here...'
-            }),
+
+            # If your BlogPost.content is a CKEditor5Field, you should not override it with forms.Textarea
+            # in the following. Hence, we disabled it, because we are using CKEditor5Field
+            # --------------------------------------------------------------------------------------------
+            # 'content': forms.Textarea(attrs={
+            #     'class': 'form-control',
+            #     'rows': 10,
+            #     'placeholder': 'Write your blog content here...'
+            # }),
+
             'image': forms.ClearableFileInput(attrs={
                 'class': 'form-control'
             }),
+
             'status': forms.Select(attrs={'class': 'form-select'}),     # added 'status'
         }
 

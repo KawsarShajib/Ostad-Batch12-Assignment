@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
-    # 'ckeditor',
+    'django_ckeditor_5',
     # 'crispy_forms',
     # 'crispy_bootstrap5',
 ]
@@ -150,3 +150,39 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'toolbar': [
+            'heading',
+            '|',
+            'bold',
+            'italic',
+            'link',
+            'bulletedList',
+            'numberedList',
+            '|',
+            'blockQuote',
+            'insertTable',
+            'undo',
+            'redo',
+        ],
+    },
+}
+
+
+"""
+    CKEDITOR_5_CONFIGS creates a default toolbar containing:
+
+        - Heading
+        - Bold
+        - Italic
+        - Link
+        - Bulleted list
+        - Numbered list
+        - Blockquote
+        - Table
+        - Undo/Redo
+
+"""

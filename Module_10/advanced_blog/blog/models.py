@@ -5,8 +5,7 @@ from django.utils import timezone
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.validators import MinValueValidator, MaxValueValidator
-from ckeditor.fields import RichTextField
-
+from django_ckeditor_5.fields import CKEditor5Field
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -51,8 +50,7 @@ class BlogPost(models.Model):
             ('published', 'Published'),
         )
     title = models.CharField(max_length=200)
-    content = models.TextField()
-    # content = RichTextField()
+    content = CKEditor5Field('Content', config_name='default')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     # Explanation : 
 
@@ -108,7 +106,6 @@ class BlogPost(models.Model):
                     # │ author
                     # ↓
                     # User
-
 
 #     title = models.CharField(max_length=200, db_index=True)
 #     created_at = models.DateTimeField(db_index=True)

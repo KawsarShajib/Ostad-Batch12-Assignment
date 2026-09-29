@@ -81,7 +81,7 @@
         <!-- Contents Section -->
         {% comment %} <div class="post-content mb-4"> {% endcomment %}
         <div class="post-content mb-4 border-top pt-3 d-flex flex-wrap gap-2 align-items-center">
-            {{ post.content|linebreaks }}
+            {{ post.content|safe }}
         </div>
 
         <!-- Like + Rating + Owner actions -->
