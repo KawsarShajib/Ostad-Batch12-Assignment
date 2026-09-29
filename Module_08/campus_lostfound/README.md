@@ -80,8 +80,8 @@ python manage.py runserver
 
 | username | password |
 |----------|----------|
-| admin    | Admin@2026    |
-| kawsar    | Sonali@2026    |
+| admin    | admin    |
+| kawsar    | Sonali@123    |
 
 ## Dependencies required to run this project
 
