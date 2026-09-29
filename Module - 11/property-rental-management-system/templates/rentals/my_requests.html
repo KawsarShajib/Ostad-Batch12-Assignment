@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}My Requests - ঘরবাড়ি (GhorBari){% endblock %}
+{% block content %}
+<h3 class="mb-4">My Rental Requests</h3>
+<div class="table-responsive">
+<table class="table bg-white shadow-sm">
+    <thead><tr><th>Property</th><th>Message</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+    <tbody>
+    {% for r in requests %}
+        <tr>
+            <td><a href="{% url 'properties:detail' r.property.pk %}">{{ r.property.title }}</a></td>
+            <td>{{ r.message|truncatewords:12 }}</td>
+            <td><span class="status-badge status-{{ r.status }}">{{ r.get_status_display }}</span></td>
+            <td>{{ r.request_date|date:"M d, Y" }}</td>
+            <td>
+                {% if r.status == 'PENDING' %}
+                    <a href="{% url 'rentals:cancel_request' r.pk %}" class="btn btn-sm btn-outline-danger">Cancel</a>
+                {% endif %}
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="5" class="text-muted text-center">You haven't sent any rental requests yet.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

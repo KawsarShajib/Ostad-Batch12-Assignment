@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Rental Requests - ঘরবাড়ি (GhorBari){% endblock %}
+{% block content %}
+<h3 class="mb-4">Rental Requests Received</h3>
+<div class="table-responsive">
+<table class="table bg-white shadow-sm">
+    <thead><tr><th>Property</th><th>Tenant</th><th>Message</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+    <tbody>
+    {% for r in requests %}
+        <tr>
+            <td><a href="{% url 'properties:detail' r.property.pk %}">{{ r.property.title }}</a></td>
+            <td>{{ r.tenant.username }}</td>
+            <td>{{ r.message|truncatewords:10 }}</td>
+            <td><span class="status-badge status-{{ r.status }}">{{ r.get_status_display }}</span></td>
+            <td>{{ r.request_date|date:"M d, Y" }}</td>
+            <td>
+                {% if r.status == 'PENDING' %}
+                    <form method="post" action="{% url 'rentals:accept_request' r.pk %}" class="d-inline">
+                        {% csrf_token %}<button class="btn btn-sm btn-success">Accept</button>
+                    </form>
+                    <form method="post" action="{% url 'rentals:reject_request' r.pk %}" class="d-inline">
+                        {% csrf_token %}<button class="btn btn-sm btn-danger">Reject</button>
+                    </form>
+                {% endif %}
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="6" class="text-muted text-center">No rental requests received yet.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

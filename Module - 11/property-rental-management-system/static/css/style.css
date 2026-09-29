@@ -1,0 +1,100 @@
+body {
+  background-color: #f7f8fa;
+}
+
+.navbar-brand {
+  letter-spacing: 0.5px;
+}
+
+.property-card {
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+  border: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+.property-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+.property-card img,
+.property-img-placeholder {
+  height: 190px;
+  object-fit: cover;
+  width: 100%;
+  background: #e9ecef;
+}
+.property-img-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #adb5bd;
+  font-size: 2.5rem;
+}
+.rent-badge {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #198754;
+}
+.status-PENDING {
+  color: #997404;
+  background: #fff3cd;
+}
+.status-ACCEPTED {
+  color: #0f5132;
+  background: #d1e7dd;
+}
+.status-REJECTED {
+  color: #842029;
+  background: #f8d7da;
+}
+.status-CANCELLED {
+  color: #495057;
+  background: #e9ecef;
+}
+.status-badge {
+  padding: 0.3em 0.7em;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+.dashboard-stat {
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  color: #fff;
+}
+.stars i {
+  color: #ffc107;
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="email"],
+form input[type="number"],
+form select,
+form textarea {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  margin-bottom: 0.25rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+}
+
+
+.footer-info p {
+    line-height: 1.6;
+}
+
+.footer-info i {
+    width: 20px;
+}
+
+footer a {
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+footer a:hover {
+    opacity: 0.75;
+}

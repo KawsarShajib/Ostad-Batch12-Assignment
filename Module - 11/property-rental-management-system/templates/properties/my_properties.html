@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}My Properties - ঘরবাড়ি (GhorBari){% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>My Properties</h3>
+    <a href="{% url 'properties:create' %}" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add Property</a>
+</div>
+<div class="table-responsive">
+<table class="table bg-white shadow-sm">
+    <thead><tr><th>Title</th><th>Type</th><th>Location</th><th>Rent</th><th>Available</th><th>Actions</th></tr></thead>
+    <tbody>
+    {% for property in properties %}
+        <tr>
+            <td><a href="{% url 'properties:detail' property.pk %}">{{ property.title }}</a></td>
+            <td>{{ property.get_property_type_display }}</td>
+            <td>{{ property.location }}</td>
+            <td>৳{{ property.monthly_rent }}</td>
+            <td>{% if property.is_available %}<span class="badge bg-success">Yes</span>{% else %}<span class="badge bg-secondary">No</span>{% endif %}</td>
+            <td>
+                <a href="{% url 'properties:update' property.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                <a href="{% url 'properties:delete' property.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="6" class="text-muted text-center">You haven't listed any properties yet.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

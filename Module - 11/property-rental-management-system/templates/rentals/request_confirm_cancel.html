@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Cancel Request - ঘরবাড়ি (GhorBari){% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-warning">
+            <div class="card-body p-4 text-center">
+                <h4 class="mb-3">Cancel your request for "{{ rental_request.property.title }}"?</h4>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-warning">Yes, Cancel Request</button>
+                    <a href="{% url 'rentals:my_requests' %}" class="btn btn-outline-secondary">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}{{ action }} Property - ঘরবাড়ি (GhorBari){% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h3 class="mb-4">{{ action }} Property</h3>
+                <form method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label fw-bold text-muted">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.help_text %}<div class="form-text">{{ field.help_text }}</div>{% endif %}
+                            {% if field.errors %}<div class="text-danger small">{{ field.errors }}</div>{% endif %}
+                        </div>
+                    {% endfor %}
+
+
+                    <!-- addition of image gallery for a property -->
+                    <hr class="my-4">
+                    <h5 class="mb-3">Gallery Images</h5>
+                    <p class="text-muted small">Add extra photos of the property. The image field above stays the main cover photo.</p>
+                    {{ formset.management_form }}
+                    {% if formset.non_form_errors %}<div class="alert alert-danger">{{ formset.non_form_errors }}</div>{% endif %}
+                    <div class="row g-3 mb-3">
+                        {% for img_form in formset %}
+                            <div class="col-md-4">
+                                <div class="card p-2 h-100">
+                                    {{ img_form.id }}
+                                    {% if img_form.instance.pk and img_form.instance.image %}
+                                        <img src="{{ img_form.instance.image.url }}" class="img-fluid rounded mb-2" style="height:120px; object-fit:cover;">
+                                    {% endif %}
+                                    <label class="form-label small">Image</label>
+                                    {{ img_form.image }}
+                                    <label class="form-label small mt-2">Caption (optional)</label>
+                                    {{ img_form.caption }}
+                                    {% if img_form.errors %}<div class="text-danger small">{{ img_form.errors }}</div>{% endif %}
+                                    {% if img_form.instance.pk %}
+                                        <div class="form-check mt-2">
+                                            {{ img_form.DELETE }}
+                                            <label class="form-check-label small">Remove this image</label>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">{{ action }} Property</button>
+                    <a href="{% url 'properties:list' %}" class="btn btn-outline-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

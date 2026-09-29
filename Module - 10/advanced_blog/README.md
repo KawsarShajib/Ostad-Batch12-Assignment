@@ -1,0 +1,210 @@
+# Blog Application (Django)
+
+A Simple Blog Application built with Django:
+
+-  Django Project & App 
+-  Models 
+-  Basic CRUD operations 
+-  Django Forms 
+-  Templates 
+-  User Authentication 
+-  Template inheritance 
+-  Login/logout functionality 
+-  Connecting users with their blog posts 
+
+## Features
+
+### User Authentication
+- User Registration (username, email, password)
+- User Login / Logout
+- Authentication-protected pages for create/edit/delete
+- Display logged-in user's name in navbar
+
+### Blog Post CRUD
+- **Create**: Authenticated users can create posts (title + content)
+- **Read**: View all posts on home page, individual post details, and "My Posts"
+- **Update**: Edit own posts only
+- **Delete**: Delete own posts only (with confirmation)
+
+### Profile page & profile picture
+- Add profile page
+- Add profile picture
+- Add about me
+
+Ownership: users cannot edit or delete posts belonging to others.
+
+### Post Images 
+- Add image field to blog posts
+- Display images in post detail and home page (in the cards as thumbnail)
+- Add image upload functionality in create/edit post forms
+
+### Search Functionality
+- Add search bar in navbar
+- Search posts by title or content or category
+
+
+### Add categories to posts
+- Add category field to blog posts
+- Display category in post detail and home page (in the cards)
+- Add category filter functionality in home page (e.g. show all posts in a specific category)
+- Add category filter functionality in "My Posts" page (e.g. show all posts in a specific category)
+
+### Filtering posts by category
+- Add category filter functionality in home page (e.g. show all posts in a specific category)
+- Add category filter functionality in "My Posts" page  (upcoming feature)
+- Add category filter functionality in search results page (upcoming feature)
+- Add category filter functionality in "Popular Posts" page (upcoming feature)
+
+
+###  Django ORM aggregation 
+| Function | Purpose | Example | 
+|----------|---------|---------|
+| Count | Number of items | Total likes, total comments | 
+| Avg | Average value | Average star rating | 
+| Sum | Total of values | Sum of all ratings | 
+| Min | Smallest value | Lowest rating | 
+| Max | Largest value | Highest rating |
+
+###  Pagination
+- Add pagination to home page and "Popular Posts" page
+- Add pagination to search results page
+
+
+## Project Structure
+
+```
+blog_project/
+├── blog/                # Blog App
+│   ├── __init__.py     
+│   ├── admin.py          # Admin registration  
+│   ├── forms.py          # RegisterForm, BlogPostForm etc.  
+│   ├── models.py         # Profile, Category, BlogPost model
+│   ├── urls.py           # App URLs
+│   ├── views.py          # All views
+│   └── migrations/
+│
+├── blog_project/         # Main app
+│   ├── __init__.py 
+│   ├──asgi.py
+│   ├──settings.py
+│   ├──urls.py
+│   └──wsgi.py
+│
+├── media/
+├── static/
+│ 
+├── templates/
+│   ├── base.html         # Base template with navbar
+│   └── blog/
+│       ├── create_post.html
+│       ├── delete_comment.html
+│       ├── delete_post.html
+│       ├── edit_comment.html
+│       ├── edit_post.html
+│       ├── edit_profile.html
+│       ├── home.html
+│       ├── login.html
+│       ├── post_detail.html
+│       ├── my_posts.html
+│       ├── popular_posts.html
+│       ├── post_detail.html
+│       ├── profile.html
+│       ├── register.html
+│       └── search_results.html
+│
+├── .gitignore
+├── db.sqlite3
+├── manage.py
+├── project_structure.png
+└── README.md
+└── requirements.txt
+```
+
+## Setup & Run
+
+1. **Create virtual environment**
+   ```bash
+   python -m venv venv
+   source venv\Scripts\activate
+   ```
+
+2. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ---
+   installed dependicies : 
+   asgiref==3.12.1
+   Django==6.1.1
+   django-ckeditor==6.7.3
+   django-js-asset==4.1.0
+   pillow==12.3.0
+   sqlparse==0.6.0
+   tzdata==2026.4
+   ---
+   ```
+
+3. **Apply migrations**
+   ```bash
+   python manage.py migrate
+   ```
+
+4. **Create a superuser**
+   ```bash
+   python manage.py createsuperuser
+   ```
+
+5. **Run the development server**
+   ```bash
+   python manage.py runserver
+   ```
+
+6. Open http://127.0.0.1:8000/ 
+
+
+## Login with Users created :
+
+| Username | Password  | Notes                  |
+|----------|-----------|------------------------|
+| admin    | admin123  | Superuser |
+| kawsar    | Sonali@123   | Sample user |
+| rahim    | pass123   | Sample user |
+| mirab    | User@2026   | Sample user |
+
+
+
+## Pages
+
+| URL                  | Description                          | Auth Required |
+|----------------------|--------------------------------------|---------------|
+| `/`                  | Home – list of all posts             | No            |
+| `/post/<id>/`        | Post detail                          | No            |
+| `/register/`         | User registration                    | No            |
+| `/login/`            | Login                                | No            |
+| `/logout/`           | Logout                               | Yes           |
+| `/post/create/`      | Create new post                      | Yes           |
+| `/post/<id>/edit/`   | Edit post (owner only)               | Yes           |
+| `/post/<id>/delete/` | Delete confirmation (owner only)     | Yes           |
+| `/my-posts/`         | List of current user's posts         | Yes           |
+| `/admin/`            | Django admin                         | Superuser     |
+
+
+## Authorization Example
+
+- **Kawsar** creates "Lionel Messi: The Ultimate Success Story of Talent, Struggle, Failure & Greatness"
+  - Kawsar: can view, edit, delete his post
+  - Any other user can view only
+  - Any other logged in user can view, comment, like only
+
+## Technologies Used
+
+- Python 3
+- Django 6
+- Django Templates + Forms
+- Django Authentication System
+- SQLite
+- Bootstrap 5 (CDN)
+
+## Bonus Ideas (for future implementation)
+
+- Responsive improvements (already mobile-friendly via Bootstrap)
+- Project demonstration video 

@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ঘরবাড়ি (GhorBari){% endblock %}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'properties:list' %}"><i class="fa-solid fa-house-chimney"></i> ঘরবাড়ি (GhorBari) </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'properties:list' %}">Browse Properties</a></li>
+                {% if user.is_authenticated %}
+                    {% if user.is_owner %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'properties:create' %}">Add Property</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'properties:mine' %}">My Properties</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'rentals:owner_requests' %}">Rental Requests</a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'rentals:my_requests' %}">My Requests</a></li>
+                    {% endif %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:dashboard' %}">Dashboard</a></li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:profile' %}"><i class="fa-solid fa-user"></i> {{ user.username }}</a></li>
+                    <li class="nav-item">
+                        <form method="post" action="{% url 'accounts:logout' %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-light btn-sm ms-2">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:register' %}">Register</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% block content %}{% endblock %}
+</div>
+
+
+<footer class="mt-5 py-5 bg-dark text-light">
+    <div class="container">
+
+        <div class="row g-4">
+
+            <!-- =========================
+                 LEFT: ABOUT US
+            ========================== -->
+            <div class="col-md-6">
+                <h5 class="fw-bold text-white mb-3">About Us</h5>
+                <p class="text-white-50 mb-0">
+                    GhorBari is a simple and reliable property management platform 
+                    designed to connect property owners and tenants. We make it easier 
+                    to list properties, find suitable homes, manage rental requests, 
+                    and handle property-related activities—all in one convenient 
+                    place.
+                </p>
+            </div>
+
+
+            <!-- =========================
+                 MIDDLE: FOLLOW US
+            ========================== -->
+            <div class="col-md-3">
+                <h5 class="fw-bold text-white mb-3">Follow Us</h5>
+
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-white fs-5" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+
+                    <a href="#" class="text-white fs-5" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+
+                    <a href="#" class="text-white fs-5" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+
+                    <a href="#" class="text-white fs-5" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+
+
+            <!-- =========================
+                 RIGHT: CONTACT INFORMATION
+            ========================== -->
+            <div class="col-md-3">
+
+                <h5 class="fw-bold text-white mb-3">Meet Us</h5>
+
+                <div class="footer-info">
+
+                    <p class="mb-2">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <strong>Visit Us:</strong><br>
+                        <span class="ms-4 text-white-50">
+                            Dhaka, Bangladesh
+                        </span>
+                    </p>
+
+                    <div class="mb-3">
+                        <div>
+                            <i class="fa-solid fa-clock"></i>
+                            <strong>Business Hours:</strong>
+                        </div>
+
+                        <div class="ms-4 text-white-50">Saturday - Thursday</div>
+                        <div class="ms-4 text-white-50">9:30 AM - 6:00 PM</div>
+                    </div>
+
+                    <p class="mb-2">
+                        <i class="fa-solid fa-phone"></i>
+                        <strong>Contact:</strong>
+                        <span class="text-white-50">
+                            +880 1716192030
+                        </span>
+                    </p>
+
+                    <p class="mb-0">
+                        <i class="fa-solid fa-envelope"></i>
+                        <strong>Email:</strong>
+                        <span class="text-white-50">
+                            kawsar117@gamil.com
+                        </span>
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer Bottom -->
+        <hr class="border-secondary my-4">
+
+        <div class="text-center">
+            <p class="mb-0 text-white-50">
+                © {% now "Y" %} GhorBari (ঘরবাড়ি). All Rights Reserved.
+            </p>
+        </div>
+
+    </div>
+</footer>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

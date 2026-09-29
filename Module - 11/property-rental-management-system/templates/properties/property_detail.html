@@ -1,0 +1,395 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ property.title }} - ঘরবাড়ি (GhorBari){% endblock %}
+
+{% block content %}
+
+
+
+<div class="row">
+
+    <!-- ==================== PROPERTY IMAGES ==================== -->
+    <div class="col-md-7">
+
+        {% with first_gallery=property.gallery_images.first %}
+
+            <!-- Main / Cover Image -->
+            <div id="mainImageWrapper">
+
+                {% if property.image %}
+
+                    <img id="mainPropertyImage"
+                         src="{{ property.image.url }}"
+                         class="img-fluid rounded shadow-sm mb-3"
+                         style="max-height:420px; width:100%; object-fit:cover;"
+                         alt="{{ property.title }}">
+
+                {% elif first_gallery %}
+
+                    <!--
+                    If there is no cover image,
+                    use the first gallery image as the main image.
+                    -->
+                    <img id="mainPropertyImage"
+                         src="{{ first_gallery.image.url }}"
+                         class="img-fluid rounded shadow-sm mb-3"
+                         style="max-height:420px; width:100%; object-fit:cover;"
+                         alt="{{ property.title }}">
+
+                {% else %}
+
+                    <!-- No cover image and no gallery images -->
+                    <div class="property-img-placeholder rounded mb-3"
+                         style="height:320px;">
+                        <i class="fa-solid fa-image fa-3x"></i>
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- ==================== IMAGE GALLERY ==================== -->
+
+            {% if first_gallery %}
+
+                <div class="row g-2 mb-3">
+
+                    {% for img in property.gallery_images.all %}
+
+                        <div class="col-4 col-sm-3">
+
+                            <div class="position-relative">
+
+                                <img src="{{ img.image.url }}"
+                                     class="img-fluid rounded gallery-thumb{% if not property.image and forloop.first %} border border-primary border-3{% endif %}"
+                                     style="height:90px; width:100%; object-fit:cover; cursor:pointer;"
+                                     alt="{% if img.caption %}{{ img.caption }}{% else %}Property image{% endif %}"
+                                     {% if img.caption %}title="{{ img.caption }}"{% endif %}
+                                     onclick="setMainPropertyImage(this)">
+
+
+                                <!-- Delete Gallery Image - Owner Only -->
+                                {% if user.is_authenticated and property.owner_id == user.id %}
+
+                                    <form method="post"
+                                          action="{% url 'properties:delete_image' img.pk %}"
+                                          class="position-absolute top-0 end-0 m-1"
+                                          onsubmit="return confirm('Remove this image?');">
+
+                                        {% csrf_token %}
+
+                                        <button type="submit"
+                                                class="btn btn-sm btn-danger py-0 px-1"
+                                                title="Remove image">
+                                            &times;
+                                        </button>
+
+                                    </form>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+    </div>
+
+
+    <!-- ==================== PROPERTY INFORMATION ==================== -->
+
+    <div class="col-md-5">
+
+        <h2>{{ property.title }}</h2>
+
+        <p class="text-muted">
+            <i class="fa-solid fa-location-dot"></i>
+            {{ property.location }}
+        </p>
+
+        <p>
+            <span class="badge bg-secondary">
+                {{ property.get_property_type_display }}
+            </span>
+
+            {% if property.is_available %}
+                <span class="badge bg-success">Available</span>
+            {% else %}
+                <span class="badge bg-danger">Not Available</span>
+            {% endif %}
+        </p>
+
+        <p class="rent-badge fs-3">
+            ৳{{ property.monthly_rent }}/mo
+        </p>
+
+        <p>
+            {{ property.bedrooms }} Bedroom(s)
+            &middot;
+            {{ property.bathrooms }} Bathroom(s)
+        </p>
+
+
+        {% if property.average_rating %}
+
+            <p class="stars">
+
+                {% for i in "12345" %}
+
+                    <i class="fa-solid fa-star{% if forloop.counter > property.average_rating %}-o{% endif %}"></i>
+
+                {% endfor %}
+
+                ({{ property.average_rating }}/5)
+
+            </p>
+
+        {% endif %}
+
+
+        <p class="text-muted">
+            Listed by <strong>{{ property.owner.username }}</strong>
+        </p>
+
+
+        <!-- ==================== OWNER ACTIONS ==================== -->
+
+        {% if user.is_authenticated and property.owner_id == user.id %}
+
+            <div class="d-flex gap-2 mt-3">
+
+                <a href="{% url 'properties:update' property.pk %}"
+                   class="btn btn-outline-primary">
+
+                    <i class="fa-solid fa-pen"></i>
+                    Edit
+
+                </a>
+
+                <a href="{% url 'properties:delete' property.pk %}"
+                   class="btn btn-outline-danger">
+
+                    <i class="fa-solid fa-trash"></i>
+                    Delete
+
+                </a>
+
+            </div>
+
+
+        <!-- ==================== RENTAL REQUEST ==================== -->
+
+        {% elif can_request %}
+
+            <button class="btn btn-primary mt-3"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#requestForm">
+
+                Send Rental Request
+
+            </button>
+
+            <div class="collapse mt-3" id="requestForm">
+
+                <form method="post"
+                      action="{% url 'rentals:send_request' property.pk %}">
+
+                    {% csrf_token %}
+
+                    {{ request_form.message }}
+
+                    <button type="submit"
+                            class="btn btn-success mt-2">
+
+                        Submit Request
+
+                    </button>
+
+                </form>
+
+            </div>
+
+
+        <!-- ==================== PENDING REQUEST ==================== -->
+
+        {% elif user.is_authenticated and user.is_tenant and existing_pending_request %}
+
+            <p class="mt-3">
+
+                <span class="status-badge status-PENDING">
+                    You have a pending request for this property
+                </span>
+
+            </p>
+
+
+        <!-- ==================== LOGIN ==================== -->
+
+        {% elif not user.is_authenticated %}
+
+            <p class="mt-3">
+
+                <a href="{% url 'accounts:login' %}">Login</a>
+                as a tenant to send a rental request.
+
+            </p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<!-- ==================== DESCRIPTION ==================== -->
+
+<hr class="my-4">
+
+<h4>Description</h4>
+
+<p>
+    {{ property.description|linebreaks }}
+</p>
+
+
+<!-- ==================== REVIEWS ==================== -->
+
+<hr class="my-4">
+
+<h4>Reviews ({{ reviews.count }})</h4>
+
+
+{% if can_review %}
+
+    <div class="card mb-3 shadow-sm">
+
+        <div class="card-body">
+
+            <h6>Leave a Review</h6>
+
+            <form method="post"
+                  action="{% url 'rentals:add_review' property.pk %}">
+
+                {% csrf_token %}
+
+                <div class="row g-2">
+
+                    <div class="col-md-3">
+                        {{ review_form.rating }}
+                    </div>
+
+                    <div class="col-md-7">
+                        {{ review_form.comment }}
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <button type="submit"
+                                class="btn btn-primary w-100">
+
+                            Submit
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+{% endif %}
+
+
+<!-- ==================== EXISTING REVIEWS ==================== -->
+
+{% for review in reviews %}
+
+    <div class="card mb-2">
+
+        <div class="card-body">
+
+            <p class="stars mb-1">
+
+                {% for i in "12345" %}
+
+                    <i class="fa-solid fa-star{% if forloop.counter > review.rating %}-o{% endif %}"></i>
+
+                {% endfor %}
+
+                <strong class="ms-2">
+                    {{ review.tenant.username }}
+                </strong>
+
+                <span class="text-muted small">
+                    {{ review.created_at|date:"M d, Y" }}
+                </span>
+
+            </p>
+
+            <p class="mb-0">
+                {{ review.comment }}
+            </p>
+
+        </div>
+
+    </div>
+
+{% empty %}
+
+    <p class="text-muted">
+        No reviews yet.
+    </p>
+
+{% endfor %}
+
+
+<!-- ==================== GALLERY JAVASCRIPT ==================== -->
+
+<script>
+function setMainPropertyImage(thumbEl) {
+
+    // Get the main image element
+    var mainImg = document.getElementById('mainPropertyImage');
+
+    // Get the clicked thumbnail's image URL
+    var imageUrl = thumbEl.getAttribute('src');
+
+    // Change the main image
+    if (mainImg) {
+        mainImg.src = imageUrl;
+    }
+
+    // Remove the blue border from all thumbnails
+    document.querySelectorAll('.gallery-thumb').forEach(function (el) {
+
+        el.classList.remove(
+            'border',
+            'border-primary',
+            'border-3'
+        );
+
+    });
+
+    // Add the blue border to the selected thumbnail
+    thumbEl.classList.add(
+        'border',
+        'border-primary',
+        'border-3'
+    );
+}
+</script>
+
+
+{% endblock %}

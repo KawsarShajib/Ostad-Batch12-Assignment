@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}Browse Properties - ঘরবাড়ি (GhorBari){% endblock %}
+{% block content %}
+<h4 class="mb-2">Explore Available Properties Instantly</h4>
+<h6 class="text-muted mb-4">Your complete property overview with photos, amenities, and key details.</h6>
+
+<div class="card mb-5 shadow-sm">
+    <div class="card-body">
+        <form method="get" class="row g-4">
+            <div class="col-md-3">{{ form.location }}</div>
+            <div class="col-md-3">{{ form.property_type }}</div>
+            <div class="col-md-2">{{ form.min_rent }}</div>
+            <div class="col-md-2">{{ form.max_rent }}</div>
+            <div class="col-md-1"><button class="btn btn-primary w-100" type="submit"><i class="fa-solid fa-search"></i></button></div>
+            <div class="col-md-1"><button class="btn btn-primary w-100" type="text"><a class="nav-link" href="{% url 'properties:list' %}">Reset</a></button></div>
+        </form>
+        {% if form.errors %}<div class="text-danger small mt-2">{{ form.non_field_errors }}</div>{% endif %}
+    </div>
+</div>
+
+
+<div>
+    <h5 class="mb-4" style="text-align: center; color: purple;">
+        Find Your Perfect Properties
+    </h5>
+</div>
+
+<div class="row g-4">
+    {% for property in page_obj %}
+        <div class="col-md-4">
+            <div class="card property-card h-100">
+                <a href="{% url 'properties:detail' property.pk %}">
+                    {% if property.image %}
+                        <img src="{{ property.image.url }}" class="card-img-top">
+                    {% else %}
+                        <div class="property-img-placeholder"><i class="fa-solid fa-image"></i></div>
+                    {% endif %}
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'properties:detail' property.pk %}" class="text-decoration-none text-dark">{{ property.title }}</a></h5>
+                    <p class="text-muted mb-1"><i class="fa-solid fa-location-dot"></i> {{ property.location }}</p>
+                    <p class="mb-1"><span class="badge bg-secondary">{{ property.get_property_type_display }}</span>
+                        {{ property.bedrooms }} bed &middot; {{ property.bathrooms }} bath</p>
+                    <p class="rent-badge mb-0">৳ {{ property.monthly_rent }}/month</p>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12"><div class="alert alert-info">No properties match your search.</div></div>
+    {% endfor %}
+</div>
+
+{% if page_obj.has_other_pages %}
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}">Previous</a></li>
+        {% endif %}
+        <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+        {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}">Next</a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}

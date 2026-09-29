@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Tenant Dashboard - ঘরবাড়ি (GhorBari) {% endblock %}
+{% block content %}
+<h3 class="mb-4">Tenant Dashboard</h3>
+<div class="row g-3 mb-4">
+    <div class="col-md-3 col-6"><div class="dashboard-stat bg-primary"><div class="fs-3 fw-bold">{{ total_requests }}</div>Total Requests</div></div>
+    <div class="col-md-3 col-6"><div class="dashboard-stat bg-warning text-dark"><div class="fs-3 fw-bold">{{ pending_requests }}</div>Pending</div></div>
+    <div class="col-md-3 col-6"><div class="dashboard-stat bg-success"><div class="fs-3 fw-bold">{{ accepted_requests }}</div>Accepted</div></div>
+    <div class="col-md-3 col-6"><div class="dashboard-stat bg-danger"><div class="fs-3 fw-bold">{{ rejected_requests }}</div>Rejected</div></div>
+</div>
+
+<div class="d-flex gap-2 mb-4">
+    <a href="{% url 'properties:create' %}"
+       class="btn"
+       style="background-color: #00bcd4; color: white; border-color: #00bcd4;">
+        <i class="fa-solid fa-plus"></i> Browse Properties
+    </a>
+    <a href="{% url 'rentals:my_requests' %}" class="btn btn-outline-secondary">View All My Requests</a>
+</div>
+
+<h5 class="mb-4"
+    style="color: purple; background-color: #ecece1; padding: 10px 15px; border-radius: 5px;">
+    Recent Requests
+</h5>
+
+
+<div class="table-responsive">
+<table class="table table-sm bg-white">
+    <thead><tr><th>Property</th><th>Status</th><th>Date</th><th></th></tr></thead>
+    <tbody>
+    {% for r in recent_requests %}
+        <tr>
+            <td>{{ r.property.title }}</td>
+            <td><span class="status-badge status-{{ r.status }}">{{ r.get_status_display }}</span></td>
+            <td>{{ r.request_date|date:"M d, Y" }}</td>
+            <td><a href="{% url 'properties:detail' r.property.pk %}" class="btn btn-sm btn-outline-primary">View Property</a></td>
+        </tr>
+    {% empty %}<tr><td colspan="4" class="text-muted">You haven't made any requests yet.</td></tr>{% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}
