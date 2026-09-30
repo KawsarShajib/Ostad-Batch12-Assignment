@@ -101,3 +101,17 @@ python manage.py startapp products
 ```
 
 ---
+
+# 7. Configure Installed Apps
+
+```python
+INSTALLED_APPS = [
+    ....
+    'rest_framework',
+    'rest_framework.authtoken',
+
+    'products',
+]
+```
+
+---
