@@ -80,3 +80,24 @@ Save list of all installed packages for reference :
 pip freeze > requirements.txt
 ```
 
+---
+
+# 5. Create the Django Project
+
+```bash
+django-admin startproject shop_project .
+```
+
+The dot (`.`) is important because it creates the project in the current folder.
+
+---
+
+# 6. Create the Products App
+
+Create an app named `products`:
+
+```bash
+python manage.py startapp products
+```
+
+---
