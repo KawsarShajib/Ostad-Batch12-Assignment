@@ -164,3 +164,38 @@ python manage.py migrate
 This creates the required database tables in the default SQLite database.
 
 ---
+
+# 11. Create the Product Serializer in products/serializers.py
+
+```python
+from rest_framework import serializers
+
+from .models import Product
+
+class ProductSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Product
+        fields = ['id', 'name', 'description', 'price', 'stock']
+        read_only_fields = ['id']
+
+    def validate_name(self, value):
+        value = value.strip()
+
+        if not value:
+            raise serializers.ValidationError(
+                "Product name cannot be empty."
+            )
+
+        return value
+
+    def validate_price(self, value):
+        if value <= 0:
+            raise serializers.ValidationError(
+                "Price must be greater than zero."
+            )
+
+        return value
+```
+
+---
