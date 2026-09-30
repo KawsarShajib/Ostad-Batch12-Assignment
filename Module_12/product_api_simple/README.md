@@ -153,3 +153,14 @@ class Product(models.Model):
 ```
 
 ---
+
+# 10. Create and apply the Migrations
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+This creates the required database tables in the default SQLite database.
+
+---
