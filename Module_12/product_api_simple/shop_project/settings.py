@@ -130,3 +130,27 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+# Configure REST Framework 
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    # "TokenAuthentication" tells DRF to authenticate users using tokens.
+
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+    # "IsAuthenticatedOrReadOnly" means:
+    # GET --> allowed without authentication.
+    # POST --> requires authentication.
+    # Other write operations --> require authentication.
+
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.PageNumberPagination',
+    # "DEFAULT_PAGINATION_CLASS" must be a string, not a list.
+
+    'PAGE_SIZE': 10,
+    # "PageNumberPagination" means the API returns a maximum of 10 products per page. The response will be a paginated response. For example : /api/products/?page=2
+}
