@@ -15,8 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('products.urls')),
+    # Now the product API will be available at: /api/products/
+    # Therefore: GET /api/products/  and: POST /api/products/
+    # will use the same endpoint.
 ]
+

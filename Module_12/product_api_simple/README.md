@@ -231,3 +231,19 @@ urlpatterns = [
 ```
 
 ---
+
+# 14. Connect App URLs to Project URLs in shop_project/urls.py
+
+```python
+from django.contrib import admin
+from django.urls import include, path
+
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+
+    path('api/', include('products.urls')),
+]
+```
+
+---
