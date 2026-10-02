@@ -4,7 +4,24 @@ A simple Product API built with **Django** and **Django REST Framework (DRF)**.
 
 ## 1. Install Dependencies
 
-C
+Create and activate a virtual environment:
+
+```bash
+python -m venv venv
+```
+
+Activate it on Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+Install Django and Django REST Framework:
+
+```bash
+pip install django
+pip install django djangorestframework
+```
 
 ## 2. Run Migrations
 
