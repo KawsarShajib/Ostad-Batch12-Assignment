@@ -4,23 +4,7 @@ A simple Product API built with **Django** and **Django REST Framework (DRF)**.
 
 ## 1. Install Dependencies
 
-Create and activate a virtual environment:
-
-```bash
-python -m venv my_env
-```
-
-Activate it on Windows:
-
-```bash
-my_env\Scripts\activate
-```
-
-Install Django and Django REST Framework:
-
-```bash
-pip install django djangorestframework
-```
+C
 
 ## 2. Run Migrations
 
@@ -132,7 +116,50 @@ The API returns products in a paginated format:
 The API is configured to show **5 products per page**.
 
 
-# 8. SCREENSHOTS : 
+# 8. Final Project Structure
+
+After completing the project, our structure should look similar to:
+
+```text
+product_api_simple/
+│
+├── products/
+│   ├── migrations/
+│   │   ├── __init__.py
+│   │   └── 0001_initial.py
+│   │
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── serializers.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+│
+├── Screenshots/
+│
+├── shop_project/
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+│
+├── venv/
+│
+├── db.sqlite3
+│
+├── manage.py
+│
+├── README.md
+├── requirements.txt
+
+
+```
+
+
+# 9. SCREENSHOTS : 
 
 ## Screenshot of : admin panel with auth token
 
