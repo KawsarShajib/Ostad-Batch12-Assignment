@@ -1,249 +1,132 @@
 # Simple Product API
 
-A beginner-friendly Django REST Framework project for a small online shop.
+A simple Product API built with **Django** and **Django REST Framework (DRF)**.
 
-The API allows:
+## 1. Install Dependencies
 
-* Anyone to view available products.
-* Authenticated users to add new products.
-* Invalid product information to be rejected.
-* Products to be returned in a paginated response.
-* Token authentication using Django REST Framework's built-in `TokenAuthentication`.
-
-Editing, deleting, shopping carts, payments, and frontend design are outside the scope of this assignment.
-
----
-
-# 1. Technologies Used
-
-* Python
-* Django
-* Django REST Framework
-* SQLite
-* Token Authentication
-
----
-
-# 2. Project Structure
-
-The project will contain:
-
-```text
-shop_project/
-│
-├── manage.py
-│
-├── shop_project/
-│   ├── __init__.py
-│   ├── settings.py
-│   ├── urls.py
-│   ├── asgi.py
-│   └── wsgi.py
-│
-└── products/
-    ├── migrations/
-    ├── __init__.py
-    ├── admin.py
-    ├── apps.py
-    ├── models.py
-    ├── serializers.py
-    ├── urls.py
-    ├── views.py
-    └── tests.py
-```
-
----
-
-# 3. Creating and activating a Virtual Environment
+Create and activate a virtual environment:
 
 ```bash
-python -m venv venv
-source venv\Scripts\activate
+python -m venv my_env
 ```
 
----
-
-# 4. Install Django, Django REST Framework and additional packages
-
-Install Django:
+Activate it on Windows:
 
 ```bash
-pip install django
-pip install djangorestframework 
-pip install markdown            # Markdown support for the browsable API 
-pip install django-filter       # Filtering support
+my_env\Scripts\activate
 ```
 
-Save list of all installed packages for reference : 
+Install Django and Django REST Framework:
 
 ```bash
-pip freeze > requirements.txt
+pip install django djangorestframework
 ```
 
----
+## 2. Run Migrations
 
-# 5. Create the Django Project
-
-```bash
-django-admin startproject shop_project .
-```
-
-The dot (`.`) is important because it creates the project in the current folder.
-
----
-
-# 6. Create the Products App
-
-Create an app named `products`:
-
-```bash
-python manage.py startapp products
-```
-
----
-
-# 7. Configure Installed Apps
-
-```python
-INSTALLED_APPS = [
-    ....
-    'rest_framework',
-    'rest_framework.authtoken',
-
-    'products',
-]
-```
-
----
-
-# 8. Configure REST Framework in shop_project/settings.py
-
-```python
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ],
-
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    ],
-
-    'DEFAULT_PAGINATION_CLASS':
-        'rest_framework.pagination.PageNumberPagination',
-
-    'PAGE_SIZE': 10,
-}
-```
-
----
-
-# 9. Create the Product Model in products/models.py
-
-```python
-from django.db import models
-
-class Product(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    stock = models.PositiveIntegerField()
-
-    def __str__(self):
-        return self.name
-```
-
----
-
-# 10. Create and apply the Migrations
+Create migration files:
 
 ```bash
 python manage.py makemigrations
+```
+
+Apply migrations:
+
+```bash
 python manage.py migrate
 ```
 
-This creates the required database tables in the default SQLite database.
+## 3. Create a Test User
 
----
+Create a test user using Django's interactive command:
 
-# 11. Create the Product Serializer in products/serializers.py
-
-```python
-from rest_framework import serializers
-
-from .models import Product
-
-class ProductSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Product
-        fields = ['id', 'name', 'description', 'price', 'stock']
-        read_only_fields = ['id']
-
-    def validate_name(self, value):
-        value = value.strip()
-
-        if not value:
-            raise serializers.ValidationError(
-                "Product name cannot be empty."
-            )
-
-        return value
-
-    def validate_price(self, value):
-        if value <= 0:
-            raise serializers.ValidationError(
-                "Price must be greater than zero."
-            )
-
-        return value
+```bash
+python manage.py createsuperuser
 ```
 
----
+Enter a username, email, and password when prompted.
 
-# 12. Create the API View in products/views.py
+## 4. Create an Authentication Token
 
-```python
-from rest_framework.generics import ListCreateAPIView
+Make sure `rest_framework.authtoken` is included in `INSTALLED_APPS`, then run:
 
-from .models import Product
-from .serializers import ProductSerializer
-
-class ProductListCreateView(ListCreateAPIView):
-    queryset = Product.objects.all().order_by('id')
-    serializer_class = ProductSerializer
+```bash
+python manage.py migrate
 ```
 
----
+You can create a token from Django Admin:
 
-# 13. Create Product URLs in products/urls.py
+1. Start the server.
+2. Open `http://127.0.0.1:8000/admin/`
+3. Log in with the test user.
+4. Open **Tokens**.
+5. Click **Add Token**.
+6. Select the test user and save.
 
-```python
-from django.urls import path
-from .views import ProductListCreateView
+The generated token can be used for authenticated POST requests.
 
-urlpatterns = [
-    path(
-        'products/',
-        ProductListCreateView.as_view(),
-        name='product-list-create'
-    ),
-]
+## 5. Start the Development Server
+
+```bash
+python manage.py runserver
 ```
 
----
+API endpoint:
 
-# 14. Connect App URLs to Project URLs in shop_project/urls.py
-
-```python
-from django.contrib import admin
-from django.urls import include, path
-
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-
-    path('api/', include('products.urls')),
-]
+```text
+http://127.0.0.1:8000/api/products/
 ```
 
----
+## 6. Authentication
+
+### GET Products
+
+Authentication is **not required**:
+
+```text
+GET /api/products/
+```
+
+### POST Product
+
+Authentication is required.
+
+Add this header:
+
+```text
+Authorization: Token YOUR_TOKEN
+```
+
+Example:
+
+```text
+Authorization: Token abc123456789...
+```
+
+Then send the product data as JSON:
+
+```json
+{
+    "name": "Wireless Mouse",
+    "description": "A comfortable wireless mouse for everyday computer use.",
+    "price": "850.00",
+    "stock": 30
+}
+```
+
+A successful POST returns **HTTP 201 Created**.
+
+## 7. Pagination
+
+The API returns products in a paginated format:
+
+```json
+{
+    "count": 9,
+    "next": null,
+    "previous": null,
+    "results": []
+}
+```
+
+The API is configured to show **10 products per page**.

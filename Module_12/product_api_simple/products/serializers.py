@@ -1,14 +1,15 @@
 from rest_framework import serializers
 from .models import Product
 
-
 # The serializer converts Django model objects into API data and validates incoming API data.
 
 class ProductSerializer(serializers.ModelSerializer):
 # This automatically creates most of the serializer fields from the Product model.
     class Meta:
         model = Product
+        # fields = '__all__'
         fields = ['id', 'name', 'description', 'price', 'stock']
+        
         # Therefore, the API returns:
         # ```json
         # {
@@ -38,4 +39,15 @@ class ProductSerializer(serializers.ModelSerializer):
                 "Price must be greater than zero."
             )
 
+        return value
+
+    def validate_stock(self, value): 
+        if value < 0: 
+            raise serializers.ValidationError( 
+                "Stock cannot be negative." 
+            ) 
+        if not isinstance(value, int): 
+            raise serializers.ValidationError( 
+                "Stock must be a whole number." 
+            ) 
         return value
