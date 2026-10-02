@@ -129,4 +129,54 @@ The API returns products in a paginated format:
 }
 ```
 
-The API is configured to show **10 products per page**.
+The API is configured to show **5 products per page**.
+
+
+# 8. SCREENSHOTS : 
+
+## Screenshot of : admin panel with auth token
+
+![alt text](<Screenshots/admin panel with auth token.png>)
+
+## Screenshot of : admin panel with products
+
+![alt text](<Screenshots/admin panel with products.png>)
+
+## Screenshot of : empty product list with GET without AUTHENTICATION
+
+![alt text](<Screenshots/Empty Product List with GET WITHOUT AUTHENTICATION.png>)
+
+## Screenshot of : authentication error on creating new products without token
+
+![alt text](<Screenshots/authentication error on creating new products without token authentication.png>)
+
+## Screenshot of : creating new products using POST method with TOKEN AUTH
+
+![alt text](<Screenshots/creating new products using POST method with token authentication.png>)
+
+## Screenshot of : use of TOKEN AUTHENTICATION 
+
+![alt text](<Screenshots/use of token authentication.png>)
+
+## Screenshot of : valiadation error on adding a product with an empty name
+
+![alt text](<Screenshots/validation error on adding a product with an empty name.png>)
+
+## Screenshot of : valiadation error on adding a product with an empty price
+
+![alt text](<Screenshots/validation error on adding a product with an empty price.png>)
+
+## Screenshot of : valiadation error on adding a product with decimal stock
+
+![alt text](<Screenshots/validation error on adding a product with decimal stock.png>)
+
+## Screenshot of : valiadation error on adding a product with negative price
+
+![alt text](<Screenshots/validation error on adding a product with negative price.png>)
+
+## Screenshot of : valiadation error on adding a product with negative stock
+
+![alt text](<Screenshots/validation error on adding a product with negative stock.png>)
+
+## Screenshot of : screenshot showing second page of products
+![alt text](<Screenshots/screenshot showing second page of products.png>)
