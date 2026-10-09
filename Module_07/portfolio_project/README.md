@@ -58,14 +58,6 @@ This is a full-stack personal portfolio website that showcases my profile, skill
 | kawsarahmed    | Super@user123    |
 
 
-## Technologies Used
-
-| Category | Technology |
-|----------|------------|
-| Backend | Python , Django |
-| Database | SQLite (default) |
-| Frontend | HTML5, CSS3 |
-
 ---
 
 ## Screenshots
@@ -106,6 +98,14 @@ Admin Panel
 ### Step 2: Install Dependencies
 ```
 pip install django pillow
+
+pillow==12.3.0
+Django==6.1.1
+
+### Following are the core, mandatory underlying dependencies of the Django web framework
+asgiref==3.12.1
+sqlparse==0.6.0
+tzdata==2026.4
 ```
 
 ### Step 3: In Terminal write following commands to Run migrations
@@ -137,9 +137,6 @@ python manage.py runserver
 
 ---
 
-**Author:** Kawsar Ahmed Shajib
-
-<!-- 
 ## Key Django Concepts Practiced
 
 1. **Model** — `Project` model stores project data in the database
@@ -147,9 +144,8 @@ python manage.py runserver
 3. **URL** — Routes map URLs to specific views (`/`, `/about/`, `/projects/`, `/projects/<int:pk>/`)
 4. **Template** — HTML files extend `base.html` and render dynamic data
 5. **Admin** — Django admin interface for content management
-6. **Static Files** — Custom CSS for styling without JavaScript or Tailwind -->
+6. **Static Files** — Custom CSS for styling without JavaScript or Tailwind
 
-<!-- ---
 
 ## Troubleshooting
 
@@ -165,7 +161,7 @@ python manage.py runserver
 
 This project is for educational purposes. Feel free to modify and use it for your own portfolio.
 
-**Author:** Kawsar Ahmed Shajib -->
+**Author:** Kawsar Ahmed Shajib
 
 ---
 
