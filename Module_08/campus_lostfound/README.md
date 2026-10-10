@@ -118,3 +118,39 @@ User: rahim | Method: POST | Path: /reports/create/ | Time: 0.08s
 - Search/filter (`ReportSearchForm`) uses Django ORM `Q` objects for the text search (`item_name`, `description`, `location`) combined with exact filters for type/category/status.
 
 - Image upload uses Pillow + `ImageField`; uploaded images are stored under `media/report_images/` and served via `MEDIA_URL` in development (`DEBUG=True`).
+
+
+## Screenshots
+
+### Home Page : 
+![alt text](<screenshots/Campus Lost Found - home page.png>)
+
+### Login : 
+![alt text](<screenshots/Campus Lost Found - login.png>)
+
+### Register : 
+![alt text](<screenshots/Campus Lost Found - Register.png>)
+
+### Logged in User : 
+![alt text](<screenshots/Campus Lost Found - logged in user.png>)
+
+### Details : 
+![alt text](<screenshots/Campus Lost Found - Details.png>)
+
+### Category : 
+![alt text](<screenshots/Campus Lost Found - category.png>)
+
+### Create New Report : 
+![alt text](<screenshots/Campus Lost Found - create new report.png>)
+
+### Edit Report : 
+![alt text](<screenshots/Campus Lost Found - edit report.png>)
+
+### My Reports : 
+![alt text](<screenshots/Campus Lost Found - my reports.png>)
+
+### Resolved : 
+![alt text](<screenshots/Campus Lost Found - resolved.png>)
+
+### Delete Report : 
+![alt text](<screenshots/Campus Lost Found - delete page.png>)
