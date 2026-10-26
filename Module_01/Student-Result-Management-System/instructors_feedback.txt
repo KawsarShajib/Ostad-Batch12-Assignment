@@ -1,0 +1,4 @@
+Instructor's Feedback on submitted Assignment: 
+
+Requirement 5 is wrong: Pass/Fail should be based on whether any subject mark is below 40, but here status is tied to the average grade — a student with one failing subject but a passing average is incorrectly marked "Passed".
+

@@ -1,0 +1,12 @@
+Instructor's Feedback on submitted Assignment: 
+
+Excellent work! 🌟 
+
+Everything works perfectly: 
+roles, property CRUD, rental requests, dashboards and reviews, plus nice extras like the image gallery and email notifications. 
+
+Small fixes: 
+add python-dotenv to requirements.txt (without it, the project won't start on a fresh install), and don't commit db.sqlite3. 
+
+Keep it up!
+

@@ -1,0 +1,4 @@
+Instructor's Feedback on submitted Assignment: 
+
+Part 4 drops both foreign key constraints instead of deleting child rows first (destroying referential integrity), "first 5 products" uses WHERE product_id <= 5 instead of LIMIT 5, the "Phone" search uses = 'Phone' instead of LIKE '%Phone%', and the stock update hardcodes 9 rather than stock - 1.
+
