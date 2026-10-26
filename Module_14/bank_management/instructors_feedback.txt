@@ -1,0 +1,8 @@
+ইন্সট্রাকটরের ফিডব্যাক
+
+Feedback: 
+
+All required endpoints work, including admin lists for customers, accounts and transactions, and registration uses Django’s password validators. The README with Postman screenshots is excellent. 
+
+Marks were lost because no row locks (select_for_update) are used: the balance is checked in validate() outside the atomic block, so two simultaneous withdrawals can overdraw an account, and nothing at the DB level prevents a negative balance (MinValueValidator doesn’t run on save()). There are also no tests, IsOwnerOrAdmin is defined twice, and db.sqlite3 and the assignment PDF are committed.
+
