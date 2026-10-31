@@ -162,14 +162,44 @@ FoodieExpress/
 
 No Node.js, npm, or build step is required!
 
+### Option A: Using Python (Recommended)
+
 1. Clone or open the project folder in your editor:
    ```bash
    cd FoodieExpress
    ```
-2. Double-click `index.html` or open it with any web browser.
-3. Alternatively, launch a simple HTTP server:
+2. Start the lightweight local server:
    ```bash
-   python -m http.server 3000
+   python -m http.server 8000
+   ```
+3. Open your favorite web browser and navigate to:
+   ```text
+   http://localhost:8000
+   ```
+   or
+   ```bash
+   python -m http.server 8000 --bind localhost
+   ```
+
+### Option B: VS Code Live Server
+1. Open the `FoodieExpress` folder in VS Code.
+2. Right-click on `index.html` and click **"Open with Live Server"**.
+
+### Option C: Direct File Opening
+Double-click `index.html` in your file explorer to open it directly in Chrome, Edge, Firefox, or Safari.
+
+---
+
+## 🚀 Installation of Node.js
+1. Download Node.js installation file from : https://nodejs.org/en/download
+
+2. After setup of the installation file, run following command in vs code editor :
+   ```bash (if package.json is not existed)
+   npm install tailwindcss @tailwindcss/cli
+   ```
+   or 
+   ```bash (if package.json is already existed)
+   npm install
    ```
 
 ---
