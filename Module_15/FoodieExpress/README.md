@@ -190,7 +190,7 @@ Double-click `index.html` in your file explorer to open it directly in Chrome, E
 
 ---
 
-## 🚀 Installation of Node.js
+## 🚀 Installation of Node.js (IF Tailwind CSS/CLI is used, not necesary here)
 1. Download Node.js installation file from : https://nodejs.org/en/download
 
 2. After setup of the installation file, run following command in vs code editor :
