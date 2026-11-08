@@ -1,0 +1,6 @@
+Instructor's Feedback on submitted Assignment: 
+
+All six required sections are complete, and all four bonuses are done: categories, discount badges with the old price struck through (properly done this time), a mobile menu built with <details> and no JS, and a client reviews grid. Using local assets instead of hotlinks, the primary theme tokens and the RemixIcon icons gives a polished, consistent look.
+
+Issues: the desktop nav only appears at xl: (1280px), so tablets and most laptops get the hamburger menu, even though the brief asked for md:/lg: breakpoints. The nav has two links to #popular. styles.css repeats work: the Poppins font is imported again, and its :root CSS variables are never used because the Tailwind config already defines them.
+
