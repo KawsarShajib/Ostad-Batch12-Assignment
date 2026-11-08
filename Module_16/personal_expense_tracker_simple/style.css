@@ -35,3 +35,42 @@ h1 {
 .app-header p {
   color: #555;
 }
+
+
+/* Dashboard : Total Income, Total Expenses, and Current Balance. */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.income-card p {
+  color: green;
+}
+
+.expense-card p {
+  color: red;
+}
+
+.balance-card p {
+  color: #1f3b57;
+}
