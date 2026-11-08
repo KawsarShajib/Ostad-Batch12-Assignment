@@ -21,3 +21,17 @@ h1 {
   color: #1f3b57;
   margin-bottom: 25px;
 }
+
+.app-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.app-header h1 {
+  color: #1f3b57;
+  margin-bottom: 8px;
+}
+
+.app-header p {
+  color: #555;
+}
