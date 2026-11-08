@@ -7,14 +7,15 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- 1. Dashboard : Total Income, Total Expenses, and Current Balance.  -->
+  <!-- Initiating the project  -->
+   
   <main class="container">
     <header class="app-header">
       <h1>Personal Expense Tracker</h1>
       <p>Track your income, expenses, and balance easily.</p>
     </header>
 
-    <!-- 2. Dashboard : Total Income, Total Expenses, and Current Balance.  -->
+    <!-- 2. Building Dashboard : Total Income, Total Expenses, and Current Balance.  -->
 
     <section class="dashboard">
       <div class="card income-card">
@@ -33,7 +34,7 @@
       </div>
     </section>
 
-    <!-- 3. Add Transaction form  -->
+    <!-- 3. Building Add Transaction form  -->
     
     <section class="form-section">
       <h2 id="formTitle">Add Transaction</h2>
@@ -97,6 +98,32 @@
       </form>
 
       <p id="formMessage" class="form-message hidden"></p>
+    </section>
+
+    <!-- 4. Building Transaction History  -->
+
+    <section class="history-section">
+      <h2>Transaction History</h2>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Amount</th>
+              <th>Category</th>
+              <th>Type</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="transactionTableBody"></tbody>
+        </table>
+
+        <p id="emptyMessage" class="empty-message hidden">
+          No transactions found. Add your first transaction above.
+        </p>
+      </div>
     </section>
 
   </main>
