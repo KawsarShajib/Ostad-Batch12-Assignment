@@ -202,3 +202,72 @@ th {
   padding: 20px;
   color: #555;
 }
+
+
+
+/*  6. Add delete transaction */
+/* No extra HTML is needed; the delete button is created in JavaScript. */
+
+.action-button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+.delete-button {
+  background: #dc3545;
+}
+
+
+
+/* 7. Add Filter and Search */
+
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.filters input,
+.filters select {
+  flex: 1;
+  min-width: 180px;
+}
+
+
+/* 10. Add Edit Transaction */
+
+.edit-button {
+  background: #28a745;
+}
+
+
+/* 11. Monthly Expenses Summary */
+
+.monthly-summary {
+  margin-top: 25px;
+}
+
+.monthly-item {
+  background: #f4f6f8;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+}
+
+
+
+/* 12. Responsive */
+
+@media (max-width: 768px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  form {
+    grid-template-columns: 1fr;
+  }
+}
