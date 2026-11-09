@@ -107,17 +107,16 @@ function addTransaction(event) {
 
   transactions.push(newTransaction);
 
-  transactionForm.reset();
+  saveTransactions();
   renderTransactions();
+
+  transactionForm.reset();
   showMessage("Transaction added successfully!", "success");
 }
-
-transactionForm.addEventListener("submit", addTransaction);
 
 /* 
 event.preventDefault() stops the browser from reloading the page when the form is submitted. The required attribute provides basic HTML validation, while the JavaScript checks provide clearer custom messages.
 */
-
 
 
 
