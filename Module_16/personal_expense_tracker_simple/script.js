@@ -63,6 +63,7 @@ function addTransaction(event) {
   const category = categoryInput.value;
   const date = dateInput.value;
 
+  
   // 9. Add form validation---start
   const isValid = validateTransaction(title, amount, type, category, date);
 
@@ -71,30 +72,7 @@ function addTransaction(event) {
   }
   // 9. Add form validation---end
 
-  if (title === "") {
-    showMessage("Please enter a transaction title.", "error");
-    return;
-  }
 
-  if (amount <= 0 || isNaN(amount)) {
-    showMessage("Please enter a valid amount greater than 0.", "error");
-    return;
-  }
-
-  if (type === "") {
-    showMessage("Please select a transaction type.", "error");
-    return;
-  }
-
-  if (category === "") {
-    showMessage("Please select a category.", "error");
-    return;
-  }
-
-  if (date === "") {
-    showMessage("Please select a date.", "error");
-    return;
-  }
 
   const newTransaction = {
     id: Date.now(),
