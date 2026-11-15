@@ -1,0 +1,98 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f2f4f8;
+  color: #1f2937;
+  line-height: 1.5;
+}
+
+header {
+  background: #3b5bdb;
+  color: #fff;
+  text-align: center;
+  padding: 24px 16px;
+}
+header h1 { margin: 0 0 6px; font-size: 1.6rem; }
+header a { color: #dbe4ff; }
+
+main {
+  max-width: 900px;
+  margin: 24px auto;
+  padding: 0 16px;
+  display: grid;
+  gap: 24px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.card h2 { margin-top: 0; }
+
+form { display: flex; gap: 8px; }
+input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #3b5bdb;
+  color: #fff;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+button:hover { background: #2f4ac0; }
+button.danger { background: #e03131; padding: 6px 10px; }
+button.danger:hover { background: #c92a2a; }
+button.secondary { background: #868e96; }
+
+.stats {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+  padding: 10px 14px;
+  background: #edf2ff;
+  border-radius: 6px;
+}
+
+.filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.filter-btn { background: #adb5bd; }
+.filter-btn.active { background: #3b5bdb; }
+
+.list { list-style: none; padding: 0; margin: 0; }
+.scroll { max-height: 400px; overflow-y: auto; }
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #e9ecef;
+}
+.item .title { flex: 1; }
+.item.done .title { text-decoration: line-through; color: #868e96; }
+.id { font-weight: bold; color: #3b5bdb; min-width: 48px; }
+
+.badge { padding: 3px 10px; border-radius: 12px; font-size: 0.8rem; }
+.badge-done { background: #d3f9d8; color: #2b8a3e; }
+.badge-pending { background: #fff3bf; color: #e67700; }
+
+.empty { color: #868e96; padding: 10px; text-align: center; }
+.message { color: #3b5bdb; font-weight: bold; }
+.error { color: #e03131; }
+.small { color: #868e96; font-size: 0.85rem; }
+
+@media (max-width: 500px) {
+  form { flex-direction: column; }
+}
