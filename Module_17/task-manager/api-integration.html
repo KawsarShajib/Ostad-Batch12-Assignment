@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Task Manager with API Integration</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Task 3 & 4: Task Manager with API Integration</h1>
+  </header>
+
+  <main>
+
+    <!-- TASK 3 & 4: API Todos -->
+    <section class="card">
+      <h2>Todos from API (JSONPlaceholder)</h2>
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all">Show All</button>
+        <button class="filter-btn" data-filter="completed">Show Completed</button>
+        <button class="filter-btn" data-filter="pending">Show Pending</button>
+      </div>
+      <p id="api-message" class="message"></p>
+      <p id="api-count" class="small"></p>
+      <ul id="api-list" class="list scroll"></ul>
+    </section>
+  </main>
+
+  <script src="js/api-todos.js"></script>
+</body>
+</html>
