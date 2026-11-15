@@ -3,6 +3,7 @@
 // ===================================================
 
 const API_URL = "https://jsonplaceholder.typicode.com/todos";
+// documentation = https://jsonplaceholder.typicode.com/?utm_source=chatgpt.com
 
 // DATA
 let apiTodos = [];
