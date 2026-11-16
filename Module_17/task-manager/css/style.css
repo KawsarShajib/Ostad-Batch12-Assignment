@@ -56,6 +56,11 @@ button.danger { background: #e03131; padding: 6px 10px; }
 button.danger:hover { background: #c92a2a; }
 button.secondary { background: #868e96; }
 
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .stats {
   display: flex;
   gap: 20px;

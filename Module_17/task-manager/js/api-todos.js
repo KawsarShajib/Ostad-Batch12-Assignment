@@ -14,12 +14,16 @@ const apiList = document.getElementById("api-list");
 const apiMessage = document.getElementById("api-message");
 const apiCount = document.getElementById("api-count");
 const filterButtons = document.querySelectorAll(".filter-btn");
+const refreshBtn = document.getElementById("refresh-btn"); // bonus part
 
 // ---------- Task 3: fetch data with async/await ----------
 async function fetchTodos() {
   apiMessage.className = "message";
   apiMessage.textContent = "Loading todos...";
   apiList.innerHTML = "";
+
+  refreshBtn.disabled = true;               // bonus part
+  refreshBtn.textContent = "Refreshing..."; // bonus part
 
   try {
     const response = await fetch(API_URL);
@@ -36,6 +40,10 @@ async function fetchTodos() {
     apiMessage.className = "message error";
     apiMessage.textContent =
       "Failed to load todos. " + error.message + ". Please check your connection and try again.";
+  } finally {
+    // bonus part : runs after try OR catch
+    refreshBtn.disabled = false;
+    refreshBtn.textContent = "🔄 Refresh";
   }
 }
 
@@ -87,5 +95,7 @@ function setFilter(filter) {
 filterButtons.forEach((btn) => {
   btn.addEventListener("click", () => setFilter(btn.dataset.filter));
 });
+
+refreshBtn.addEventListener("click", fetchTodos);
 
 fetchTodos(); // run when page loads
