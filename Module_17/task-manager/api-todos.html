@@ -20,8 +20,13 @@
         <button class="filter-btn active" data-filter="all">Show All</button>
         <button class="filter-btn" data-filter="completed">Show Completed</button>
         <button class="filter-btn" data-filter="pending">Show Pending</button>
+        <!-- bonus part (3-refresh button) -->
         <button id="refresh-btn" class="secondary">🔄 Refresh</button>
       </div>
+
+      <!-- bonus part (1-search feature) -->
+      <input type="text" id="search-input" class="search" placeholder="Search todos by title..." autocomplete="off">
+      
       <p id="api-message" class="message"></p>
       <p id="api-count" class="small"></p>
       <ul id="api-list" class="list scroll"></ul>

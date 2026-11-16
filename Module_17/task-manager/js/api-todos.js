@@ -9,12 +9,16 @@ const API_URL = "https://jsonplaceholder.typicode.com/todos";
 let apiTodos = [];
 let currentFilter = "all"; // "all" | "completed" | "pending"
 
+let searchTerm = ""; // bonus part (1-search feature)
+
 // DOM references
 const apiList = document.getElementById("api-list");
 const apiMessage = document.getElementById("api-message");
 const apiCount = document.getElementById("api-count");
 const filterButtons = document.querySelectorAll(".filter-btn");
-const refreshBtn = document.getElementById("refresh-btn"); // bonus part
+
+const refreshBtn = document.getElementById("refresh-btn"); // bonus part (3-refresh button)
+const searchInput = document.getElementById("search-input"); // bonus part (1-search feature)
 
 // ---------- Task 3: fetch data with async/await ----------
 async function fetchTodos() {
@@ -22,8 +26,9 @@ async function fetchTodos() {
   apiMessage.textContent = "Loading todos...";
   apiList.innerHTML = "";
 
-  refreshBtn.disabled = true;               // bonus part
-  refreshBtn.textContent = "Refreshing..."; // bonus part
+  // bonus part (3-refresh button)
+  refreshBtn.disabled = true;               
+  refreshBtn.textContent = "Refreshing..."; 
 
   try {
     const response = await fetch(API_URL);
@@ -41,27 +46,63 @@ async function fetchTodos() {
     apiMessage.textContent =
       "Failed to load todos. " + error.message + ". Please check your connection and try again.";
   } finally {
-    // bonus part : runs after try OR catch
+    // bonus part (3-refresh button): runs after try OR catch
     refreshBtn.disabled = false;
     refreshBtn.textContent = "🔄 Refresh";
   }
 }
 
 // ---------- Task 4: filter + render ----------
+
+// function getFilteredTodos() {
+//   if (currentFilter === "completed") {
+//     return apiTodos.filter((todo) => todo.completed);
+//   }
+//   if (currentFilter === "pending") {
+//     return apiTodos.filter((todo) => !todo.completed);
+//   }
+//   return apiTodos;
+// }
+
+// ---------- Task 4: filter + render (modified for bonus part (1-search feature) -----------
 function getFilteredTodos() {
+  let list = apiTodos;
+
+  // 1. Filter by status
   if (currentFilter === "completed") {
-    return apiTodos.filter((todo) => todo.completed);
+    list = list.filter((todo) => todo.completed);
+  } else if (currentFilter === "pending") {
+    list = list.filter((todo) => !todo.completed);
   }
-  if (currentFilter === "pending") {
-    return apiTodos.filter((todo) => !todo.completed);
+
+  // 2. NEW: filter by search text (case-insensitive)
+  if (searchTerm !== "") {
+    list = list.filter((todo) =>
+      todo.title.toLowerCase().includes(searchTerm)
+    );
   }
-  return apiTodos;
+
+  return list;
 }
+
+
+
+
 
 function renderApiTodos() {
   const list = getFilteredTodos();
   apiList.innerHTML = "";
   apiCount.textContent = "Showing " + list.length + " of " + apiTodos.length + " todos";
+
+// bonus part (1-search feature)
+  if (list.length === 0) {
+      const empty = document.createElement("li");
+      empty.className = "empty";
+      empty.textContent = "No todos found.";
+      apiList.appendChild(empty);
+      return;
+  }
+// bonus part (1-search feature)
 
   list.forEach((todo) => {
     const li = document.createElement("li");
@@ -96,6 +137,12 @@ filterButtons.forEach((btn) => {
   btn.addEventListener("click", () => setFilter(btn.dataset.filter));
 });
 
-refreshBtn.addEventListener("click", fetchTodos);
+// bonus part (1-search feature)
+searchInput.addEventListener("input", () => {
+  searchTerm = searchInput.value.trim().toLowerCase();
+  renderApiTodos();
+});
+
+refreshBtn.addEventListener("click", fetchTodos); // bonus part (3-refresh button)
 
 fetchTodos(); // run when page loads

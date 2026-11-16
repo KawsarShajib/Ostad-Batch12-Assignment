@@ -56,6 +56,7 @@ button.danger { background: #e03131; padding: 6px 10px; }
 button.danger:hover { background: #c92a2a; }
 button.secondary { background: #868e96; }
 
+/* bonus part (3-refresh button) */
 button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
@@ -100,4 +101,10 @@ button:disabled {
 
 @media (max-width: 500px) {
   form { flex-direction: column; }
+}
+
+/* bonus part (1-search feature) */
+.search {
+  width: 100%;
+  margin-bottom: 12px;
 }
