@@ -76,9 +76,12 @@ function getFilteredTodos() {
   }
 
   // 2. NEW: filter by search text (case-insensitive)
+
   if (searchTerm !== "") {
     list = list.filter((todo) =>
       todo.title.toLowerCase().includes(searchTerm)
+      // it matches anywhere in the title, not just at the start.
+      // Case-insensitive: both the search text and each title are converted with toLowerCase(), so “Delectus” and “delectus” match the same todos.
     );
   }
 
@@ -138,6 +141,10 @@ filterButtons.forEach((btn) => {
 });
 
 // bonus part (1-search feature)
+
+  // input event: it fires on every keystroke, so results update as the user types, with no search button needed.
+  // Case-insensitive: both the search text and each title are converted with toLowerCase(), so “Delectus” and “delectus” match the same todos.
+
 searchInput.addEventListener("input", () => {
   searchTerm = searchInput.value.trim().toLowerCase();
   renderApiTodos();
