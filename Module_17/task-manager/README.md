@@ -13,3 +13,8 @@ Open `api-todos.html` for Task 3 and 4 (Task Manager with API Integration, inter
 - `todos.html` + `js/todo.js` : Task 2 (Todo app)
 - `api-todos.html` + `js/api-todos.js` : Tasks 3 & 4 (API fetch, filters, rendering)
 - `css/style.css` : styling
+
+
+## Future Improvement
+1. Add a countdown timer for task completion. 
+2. Display API todos and locally created todos separately in a single window.

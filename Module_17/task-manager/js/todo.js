@@ -83,6 +83,8 @@ function updateStats() {
 todoForm.addEventListener("submit", (event) => {
   event.preventDefault(); // stop page reload
   const title = todoInput.value.trim();
+  // blocks empty tasks. The submit handler trims the input and shows an error if it’s empty
+  // trim() also catches whitespace-only input like " "
 
   if (title === "") {
     todoError.textContent = "Please enter a task.";
