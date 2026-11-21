@@ -1,0 +1,38 @@
+This is a complete, well-structured submission. Every required feature works, and all four bonus items are there: edit, search, delete confirmation and a monthly summary. The code is easy to follow, with each section numbered and commented, which makes it a good learning project. I tested it in a browser at 360, 768 and 1024 px and there is no horizontal scrolling at any of them; on a phone the table scrolls inside its own card, which is the right behaviour.
+
+What works:
+
+- Add, edit, cancel edit and delete all work, and the form correctly switches to "Update Transaction" and back.
+- Delete asks for confirmation first, and both Yes and No behave correctly.
+- Search by title and the All / Income / Expenses filter work together.
+- Dashboard totals and the monthly summary update on every change.
+- Every value is inserted with `textContent`, so an `<img onerror>` title is displayed as text. No XSS.
+- Data survives a refresh, and validation blocks empty fields through the HTML attributes.
+- The README describes the features, how to run it and how the data is saved.
+
+Fix these:
+
+1. Saved data is not guarded. `loadTransactions()` calls `JSON.parse` without a `try`, and `transactions` is not checked with `Array.isArray`. If the stored value is not an array (for example `{"a":1}`), `renderTransactions` throws `transactions.filter is not a function` and the table and dashboard stop working — I reproduced it. Wrap the parse in `try/catch` and fall back to `[]` unless the result is an array.
+
+2. The date field is always empty. It starts empty and `form.reset()` clears it after every add, so you have to pick the date for every transaction. Set it to today on load and after a reset, the way the other fields are reset.
+
+3. Amounts are shown without a currency or thousands separators. The dashboard shows 123456789.99 and rows show -30000.00. `Intl.NumberFormat` (or `toLocaleString`) gives 123,456,789.99, and a symbol makes the numbers self-explanatory.
+
+4. The monthly summary prints raw keys. It shows "2026-11: 2300.50 spent" and the order depends on when each month was first used, not on the calendar. Format the label as "November 2026", sort newest first, and format the amount.
+
+5. Your custom validation messages are nearly unreachable. Because `required`, `min` and `step` are on the inputs and the form is not marked `novalidate`, the browser blocks the submit before `validateTransaction` runs, so "Please enter a transaction title." only appears for a whitespace-only title. Either add `novalidate` to the form so your own messages always show, or remove the checks the browser already covers.
+
+6. The success message never clears. "Transaction added successfully!" stays green even after you try to submit an empty form (and native bubbles appear next to it). Clear the message when the form is submitted or when a field gains focus.
+
+7. The empty state is misleading during a search. Searching for something that does not exist shows "No transactions found. Add your first transaction above." even though transactions exist. Use a different message when `transactions.length > 0`.
+
+Worth improving:
+
+- Rows are in insertion order. Sorting by date, newest first, matches the monthly summary and is what users expect.
+- Ids come from `Date.now()`, so two transactions added in the same millisecond would share one. `crypto.randomUUID()` avoids that.
+- The search box and the filter select have no labels (only placeholders), and `formMessage` has no `aria-live`, so a screen reader does not announce it. Add a `label` (or `aria-label`) and `role="status"` on the message.
+- The delete confirmation is the browser's `confirm()`. It works and counts for the bonus, but a small styled dialog would match the rest of the page.
+- The assignment PDF is committed inside the project folder. Not a problem, but it is not needed for the app.
+- The page is part of a larger assignment repository. The folder's README is good; a one-line pointer in the repository README would help the reviewer find it.
+
+Overall: a complete and correct app with all four bonuses, clear code and a clean responsive layout. The storage guard and the default date are the two changes with the most impact; the rest is polish.
