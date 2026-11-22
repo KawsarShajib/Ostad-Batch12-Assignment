@@ -1,16 +1,54 @@
-# React + Vite
+# Student Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A complete React application built with Vite to practice modern React concepts.
 
-Currently, two official plugins are available:
+## Features
+- Reusable components (Navbar, Sidebar, StudentCard, StudentList, Footer)
+- Props, Conditional Rendering, map()
+- State Management with useState + Context API
+- Form handling with validation and useRef
+- React Router (Dashboard, Students, Student Details, Add Student, About)
+- Search functionality
+- Add / Edit / Delete students
+- Ready for React Query API integration
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Project Structure
 
-## React Compiler
+   student-management-dashboard/
+   ├── public/
+   ├── src/
+   │   ├── components/
+   │   │   ├── Navbar.jsx
+   │   │   ├── Sidebar.jsx
+   │   │   ├── StudentCard.jsx
+   │   │   ├── StudentList.jsx
+   │   │   └── Footer.jsx
+   │   ├── pages/
+   │   │   ├── Dashboard.jsx
+   │   │   ├── Students.jsx
+   │   │   ├── StudentDetails.jsx
+   │   │   ├── AddStudent.jsx
+   │   │   └── About.jsx
+   │   ├── context/
+   │   │   └── StudentContext.jsx
+   │   ├── App.jsx
+   │   ├── main.jsx
+   │   └── index.css
+   ├── index.html
+   ├── package.json
+   └── README.md
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
+- React 19 + Vite
+- React Router DOM
+- TanStack React Query
+- Context API
+- Fetch API
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Clone the repository (or extract the project)
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
