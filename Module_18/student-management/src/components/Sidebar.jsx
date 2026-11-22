@@ -6,8 +6,9 @@ function Sidebar() {
       <h3>Menu</h3>
       <ul style={styles.list}>
         <li><Link to="/" style={styles.link}>Dashboard</Link></li>
-        <li><Link to="/students" style={styles.link}>All Students</Link></li>
+        <li><Link to="/students" style={styles.link}>Students (Local)</Link></li>
         <li><Link to="/add-student" style={styles.link}>Add New Student</Link></li>
+        <li><Link to="/api-students" style={styles.link}>Students (API)</Link></li>
         <li><Link to="/about" style={styles.link}>About</Link></li>
       </ul>
     </aside>

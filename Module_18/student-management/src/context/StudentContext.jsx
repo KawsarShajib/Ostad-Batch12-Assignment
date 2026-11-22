@@ -11,9 +11,9 @@ export function StudentProvider({ children }) {
   useEffect(() => {
     // This will be enhanced with React Query in Task 5
     const initialStudents = [
-      { id: 1, name: 'Kawsar Ahmed', email: 'kawsar117@gmail.com', course: 'Computer Science', age: 30, isActive: true },
-      { id: 2, name: 'Ahsan Habib', email: 'ahsan_habib@yahoo.com', course: 'Mathematics', age: 22, isActive: true },
-      { id: 3, name: 'Nadia Yasmin', email: 'nadia_yasmin@hotmail.com', course: 'Physics', age: 21, isActive: false },
+      { id: 1, name: 'Kawsar Ahmed', email: 'kawsar@gmail.com', course: 'Computer Science', age: 40, isActive: true },
+      { id: 2, name: 'Sidratul Muntaha', email: 'arin@yahoo.com', course: 'Mathematics', age: 22, isActive: true },
+      { id: 3, name: 'Safwan Ahmed', email: 'safwan@hotmail.com', course: 'Physics', age: 21, isActive: false },
     ];
     setStudents(initialStudents);
     setLoading(false);

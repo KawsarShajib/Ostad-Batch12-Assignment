@@ -7,6 +7,7 @@ import Students from './pages/Students';
 import StudentDetails from './pages/StudentDetails';
 import AddStudent from './pages/AddStudent';
 import About from './pages/About';
+import ApiStudents from './pages/ApiStudents';
 import { StudentProvider } from './context/StudentContext';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
                 <Route path="/students" element={<Students />} />
                 <Route path="/students/:id" element={<StudentDetails />} />
                 <Route path="/add-student" element={<AddStudent />} />
+                <Route path="/api-students" element={<ApiStudents />} />
                 <Route path="/about" element={<About />} />
               </Routes>
             </main>
