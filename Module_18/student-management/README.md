@@ -16,6 +16,7 @@ A complete React application built with Vite to practice modern React concepts.
 
    student-management-dashboard/
    ├── public/
+   ├── screenshots/
    ├── src/
    │   ├── components/
    │   │   ├── Navbar.jsx
@@ -52,3 +53,32 @@ A complete React application built with Vite to practice modern React concepts.
    ```bash
    npm install
    ```
+3. Run Server
+   ```bash
+   npm run dev
+   ```
+
+## Screenshots
+
+#### 01. Main Page
+![alt text](<screenshots/01. Main Page.jpg>)
+
+#### 02. Local Student List
+![alt text](<screenshots/02. Local Student List.jpg>)
+
+#### 03. Edit Student
+![alt text](<screenshots/03. Edit Student.jpg>)
+
+#### 04. Add New Student
+![alt text](<screenshots/04. Add New Student.jpg>)
+
+#### 05. Delete Student
+![alt text](<screenshots/05. Delete Student.jpg>)
+
+#### 06. Students API Data Fetching from a Public Server
+![alt text](<screenshots/06. Students API Data Fetching.jpg>)
+
+#### 07. About Page
+![alt text](<screenshots/07. About Page.jpg>)
+
+

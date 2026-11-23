@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 function Navbar() {
   return (
     <nav style={styles.navbar}>
-      <h2 style={{ margin: 0 }}>Student Management Dashboard</h2>
+      <h2 style={{ margin: 0 }}>Student Management System</h2>
       <div style={styles.links}>
         <Link to="/" style={styles.link}>Dashboard</Link>
         <Link to="/students" style={styles.link}>Students (Local)</Link>

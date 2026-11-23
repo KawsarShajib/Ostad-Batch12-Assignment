@@ -6,6 +6,19 @@ function StudentCard({ student, onDelete, onEdit }) {
     <span style={{ color: 'red' }}>Inactive</span>
   );
 
+  
+  // Confirmation before delete
+  const handleDelete = () => {
+    const confirmed = window.confirm(
+      `Are you sure you want to delete "${student.name}"?\nThis action cannot be undone.`
+    );
+
+    if (confirmed) {
+      onDelete(student.id);
+    }
+  };
+
+  
   return (
     <div style={styles.card}>
       <h3>{student.name}</h3>
@@ -18,7 +31,7 @@ function StudentCard({ student, onDelete, onEdit }) {
         <button onClick={() => onEdit(student)} style={styles.editBtn}>
           Edit
         </button>
-        <button onClick={() => onDelete(student.id)} style={styles.deleteBtn}>
+        <button onClick={handleDelete} style={styles.deleteBtn}>
           Delete
         </button>
       </div>
@@ -35,8 +48,8 @@ const styles = {
     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
   },
   buttons: { display: 'flex', gap: '10px', marginTop: '12px' },
-  editBtn: { backgroundColor: '#3b82f6', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer' },
-  deleteBtn: { backgroundColor: '#ef4444', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer' },
+  editBtn: { backgroundColor: '#3b82f6', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer', fontSize: '14px', },
+  deleteBtn: { backgroundColor: '#ef4444', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer',fontSize: '14px', },
 };
 
 export default StudentCard;

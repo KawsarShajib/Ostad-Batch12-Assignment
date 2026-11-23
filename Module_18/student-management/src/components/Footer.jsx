@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <footer style={styles.footer}>
-      <p>© 2025 Student Management Dashboard | Built with React + Vite</p>
+      <p>© 2025 Student Management System | Built with React + Vite</p>
     </footer>
   );
 }
