@@ -38,8 +38,10 @@ Your transactions will remain available after refreshing or closing the browser.
 
 ## Folder Structure
 
+```text
 personal-expense-tracker/
 ├── index.html
 ├── style.css
 ├── script.js
 └── README.md
+```

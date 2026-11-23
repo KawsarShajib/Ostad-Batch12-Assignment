@@ -14,7 +14,8 @@ A complete React application built with Vite to practice modern React concepts.
 
 ## Project Structure
 
-   student-management-dashboard/
+```
+   student-management-system/
    ├── public/
    ├── screenshots/
    ├── src/
@@ -38,6 +39,7 @@ A complete React application built with Vite to practice modern React concepts.
    ├── index.html
    ├── package.json
    └── README.md
+```
 
 ## Tech Stack
 - React 19 + Vite
